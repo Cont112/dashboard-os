@@ -27,8 +27,8 @@
       "main.o",
       "main.cpp"
     ],
-    "directory": "/home/errera/utfpr/sistemasOperacionais/dashboard-os/src/tests/qtTest",
-    "file": "/home/errera/utfpr/sistemasOperacionais/dashboard-os/src/tests/qtTest/main.cpp",
-    "output": "/home/errera/utfpr/sistemasOperacionais/dashboard-os/src/tests/qtTest/main.o"
+    "directory": "/home/errera/utfpr/sistemasOperacionais/dashboard-os/src/tests/qtCPUgraph",
+    "file": "/home/errera/utfpr/sistemasOperacionais/dashboard-os/src/tests/qtCPUgraph/main.cpp",
+    "output": "/home/errera/utfpr/sistemasOperacionais/dashboard-os/src/tests/qtCPUgraph/main.o"
   }
 ]
