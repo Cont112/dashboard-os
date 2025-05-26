@@ -1,0 +1,41 @@
+file(REMOVE_RECURSE
+  ".qt/rcc/qrc_MyProject_raw_qml_0.cpp"
+  ".qt/rcc/qrc_qmake_MyApp.cpp"
+  ".rcc/qmlcache/MyProject_qmlcache_loader.cpp"
+  ".rcc/qmlcache/MyProject_test/Main_qml.cpp"
+  ".rcc/qmlcache/MyProject_test/Main_qml.cpp.aotstats"
+  "CMakeFiles/MyProject_autogen.dir/AutogenUsed.txt"
+  "CMakeFiles/MyProject_autogen.dir/ParseCache.txt"
+  "MyProject_autogen"
+  "CMakeFiles/MyProject.dir/MyProject_autogen/mocs_compilation.cpp.o"
+  "CMakeFiles/MyProject.dir/MyProject_autogen/mocs_compilation.cpp.o.d"
+  "CMakeFiles/MyProject.dir/back.cpp.o"
+  "CMakeFiles/MyProject.dir/back.cpp.o.d"
+  "CMakeFiles/MyProject.dir/build/.qt/rcc/qrc_MyProject_raw_qml_0.cpp.o"
+  "CMakeFiles/MyProject.dir/build/.qt/rcc/qrc_MyProject_raw_qml_0.cpp.o.d"
+  "CMakeFiles/MyProject.dir/build/.qt/rcc/qrc_qmake_MyApp.cpp.o"
+  "CMakeFiles/MyProject.dir/build/.qt/rcc/qrc_qmake_MyApp.cpp.o.d"
+  "CMakeFiles/MyProject.dir/build/.rcc/qmlcache/MyProject_qmlcache_loader.cpp.o"
+  "CMakeFiles/MyProject.dir/build/.rcc/qmlcache/MyProject_qmlcache_loader.cpp.o.d"
+  "CMakeFiles/MyProject.dir/build/.rcc/qmlcache/MyProject_test/Main_qml.cpp.o"
+  "CMakeFiles/MyProject.dir/build/.rcc/qmlcache/MyProject_test/Main_qml.cpp.o.d"
+  "CMakeFiles/MyProject.dir/main.cpp.o"
+  "CMakeFiles/MyProject.dir/main.cpp.o.d"
+  "CMakeFiles/MyProject.dir/myproject_qmltyperegistrations.cpp.o"
+  "CMakeFiles/MyProject.dir/myproject_qmltyperegistrations.cpp.o.d"
+  "MyApp/MyProject.qmltypes"
+  "MyProject"
+  "MyProject.pdb"
+  "MyProject_autogen/mocs_compilation.cpp"
+  "MyProject_autogen/timestamp"
+  "meta_types/MyProject_json_file_list.txt"
+  "meta_types/MyProject_json_file_list.txt.timestamp"
+  "meta_types/qt6myproject_metatypes.json"
+  "meta_types/qt6myproject_metatypes.json.gen"
+  "myproject_qmltyperegistrations.cpp"
+)
+
+# Per-language clean rules from dependency scanning.
+foreach(lang CXX)
+  include(CMakeFiles/MyProject.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

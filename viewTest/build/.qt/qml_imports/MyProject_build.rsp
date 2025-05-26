@@ -1,0 +1,14 @@
+-rootPath
+/home/errera/utfpr/sistemasOperacionais/dashboard-os/viewTest
+-cmake-output
+-output-file
+/home/errera/utfpr/sistemasOperacionais/dashboard-os/viewTest/build/.qt/qml_imports/MyProject_build.cmake
+-importPath
+/home/errera/utfpr/sistemasOperacionais/dashboard-os/viewTest/build/MyApp
+-importPath
+/home/errera/utfpr/sistemasOperacionais/dashboard-os/viewTest/build
+-importPath
+/home/errera/Qt/6.9.0/gcc_64/qml
+-qrcFiles
+/home/errera/utfpr/sistemasOperacionais/dashboard-os/viewTest/build/.qt/rcc/qmake_MyApp.qrc
+/home/errera/utfpr/sistemasOperacionais/dashboard-os/viewTest/build/.qt/rcc/MyProject_raw_qml_0.qrc

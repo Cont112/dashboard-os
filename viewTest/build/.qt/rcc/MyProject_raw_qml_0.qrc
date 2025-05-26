@@ -1,0 +1,9 @@
+<RCC>
+  <qresource prefix="/MyApp/">
+    <file alias="test/Main.qml">/home/errera/utfpr/sistemasOperacionais/dashboard-os/viewTest/test/Main.qml</file>
+    <file alias="test/PerformanceGraphs.qml">/home/errera/utfpr/sistemasOperacionais/dashboard-os/viewTest/test/PerformanceGraphs.qml</file>
+    <file alias="test/NavigationBar.qml">/home/errera/utfpr/sistemasOperacionais/dashboard-os/viewTest/test/NavigationBar.qml</file>
+    <file alias="test/ProcessTable.qml">/home/errera/utfpr/sistemasOperacionais/dashboard-os/viewTest/test/ProcessTable.qml</file>
+  </qresource>
+</RCC>
+

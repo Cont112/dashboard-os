@@ -1,0 +1,8 @@
+--resource
+/home/errera/utfpr/sistemasOperacionais/dashboard-os/viewTest/build/.qt/rcc/qmake_MyApp.qrc
+--resource
+/home/errera/utfpr/sistemasOperacionais/dashboard-os/viewTest/build/.qt/rcc/MyProject_raw_qml_0.qrc
+/MyApp/test/Main.qml
+/MyApp/test/PerformanceGraphs.qml
+/MyApp/test/NavigationBar.qml
+/MyApp/test/ProcessTable.qml

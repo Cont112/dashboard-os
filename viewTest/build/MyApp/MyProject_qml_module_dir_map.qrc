@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="/">
+    <file alias="/MyApp">/home/errera/utfpr/sistemasOperacionais/dashboard-os/viewTest/build/MyApp</file>
+
+  </qresource>
+</RCC>

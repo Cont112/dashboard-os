@@ -1,0 +1,13 @@
+--bare
+-I
+/home/errera/utfpr/sistemasOperacionais/dashboard-os/viewTest/build
+-I
+/home/errera/Qt/6.9.0/gcc_64/qml
+--resource
+/home/errera/utfpr/sistemasOperacionais/dashboard-os/viewTest/build/.qt/rcc/qmake_MyApp.qrc
+--resource
+/home/errera/utfpr/sistemasOperacionais/dashboard-os/viewTest/build/.qt/rcc/MyProject_raw_qml_0.qrc
+/home/errera/utfpr/sistemasOperacionais/dashboard-os/viewTest/test/Main.qml
+/home/errera/utfpr/sistemasOperacionais/dashboard-os/viewTest/test/PerformanceGraphs.qml
+/home/errera/utfpr/sistemasOperacionais/dashboard-os/viewTest/test/NavigationBar.qml
+/home/errera/utfpr/sistemasOperacionais/dashboard-os/viewTest/test/ProcessTable.qml

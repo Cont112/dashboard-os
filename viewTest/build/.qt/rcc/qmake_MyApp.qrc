@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="/MyApp">
+    <file alias="qmldir">/home/errera/utfpr/sistemasOperacionais/dashboard-os/viewTest/build/MyApp/qmldir</file>
+  </qresource>
+</RCC>
+
