@@ -10,6 +10,8 @@ set(src_and_dest_list
     "/home/errera/utfpr/sistemasOperacionais/dashboard-os/viewTest/build/MyApp/test/NavigationBar.qml"
     "/home/errera/utfpr/sistemasOperacionais/dashboard-os/viewTest/test/ProcessTable.qml"
     "/home/errera/utfpr/sistemasOperacionais/dashboard-os/viewTest/build/MyApp/test/ProcessTable.qml"
+    "/home/errera/utfpr/sistemasOperacionais/dashboard-os/viewTest/test/main.qml"
+    "/home/errera/utfpr/sistemasOperacionais/dashboard-os/viewTest/build/MyApp/test/main.qml"
 
 )
 set(timestamp_file "/home/errera/utfpr/sistemasOperacionais/dashboard-os/viewTest/build/.qt/MyProject_qml.txt")

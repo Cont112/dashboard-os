@@ -1,0 +1,4 @@
+module MyApp
+typeinfo app.qmltypes
+prefer :/MyApp/
+

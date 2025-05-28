@@ -12,6 +12,34 @@ namespace _0x5f_MyApp_test_Main_qml {
         reinterpret_cast<const QV4::CompiledData::Unit*>(&qmlData), &aotBuiltFunctions[0], nullptr
     };
 }
+namespace _0x5f_MyApp_test_PerformanceGraphs_qml { 
+    extern const unsigned char qmlData[];
+    extern const QQmlPrivate::AOTCompiledFunction aotBuiltFunctions[];
+    const QQmlPrivate::CachedQmlUnit unit = {
+        reinterpret_cast<const QV4::CompiledData::Unit*>(&qmlData), &aotBuiltFunctions[0], nullptr
+    };
+}
+namespace _0x5f_MyApp_test_NavigationBar_qml { 
+    extern const unsigned char qmlData[];
+    extern const QQmlPrivate::AOTCompiledFunction aotBuiltFunctions[];
+    const QQmlPrivate::CachedQmlUnit unit = {
+        reinterpret_cast<const QV4::CompiledData::Unit*>(&qmlData), &aotBuiltFunctions[0], nullptr
+    };
+}
+namespace _0x5f_MyApp_test_ProcessTable_qml { 
+    extern const unsigned char qmlData[];
+    extern const QQmlPrivate::AOTCompiledFunction aotBuiltFunctions[];
+    const QQmlPrivate::CachedQmlUnit unit = {
+        reinterpret_cast<const QV4::CompiledData::Unit*>(&qmlData), &aotBuiltFunctions[0], nullptr
+    };
+}
+namespace _0x5f_MyApp_test_main_qml { 
+    extern const unsigned char qmlData[];
+    extern const QQmlPrivate::AOTCompiledFunction aotBuiltFunctions[];
+    const QQmlPrivate::CachedQmlUnit unit = {
+        reinterpret_cast<const QV4::CompiledData::Unit*>(&qmlData), &aotBuiltFunctions[0], nullptr
+    };
+}
 
 }
 namespace {
@@ -27,6 +55,10 @@ Q_GLOBAL_STATIC(Registry, unitRegistry)
 
 Registry::Registry() {
     resourcePathToCachedUnit.insert(QStringLiteral("/MyApp/test/Main.qml"), &QmlCacheGeneratedCode::_0x5f_MyApp_test_Main_qml::unit);
+    resourcePathToCachedUnit.insert(QStringLiteral("/MyApp/test/PerformanceGraphs.qml"), &QmlCacheGeneratedCode::_0x5f_MyApp_test_PerformanceGraphs_qml::unit);
+    resourcePathToCachedUnit.insert(QStringLiteral("/MyApp/test/NavigationBar.qml"), &QmlCacheGeneratedCode::_0x5f_MyApp_test_NavigationBar_qml::unit);
+    resourcePathToCachedUnit.insert(QStringLiteral("/MyApp/test/ProcessTable.qml"), &QmlCacheGeneratedCode::_0x5f_MyApp_test_ProcessTable_qml::unit);
+    resourcePathToCachedUnit.insert(QStringLiteral("/MyApp/test/main.qml"), &QmlCacheGeneratedCode::_0x5f_MyApp_test_main_qml::unit);
     QQmlPrivate::RegisterQmlUnitCacheHook registration;
     registration.structVersion = 0;
     registration.lookupCachedQmlUnit = &lookupCachedUnit;

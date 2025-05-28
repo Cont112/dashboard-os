@@ -1,0 +1,20 @@
+[
+    {
+        "moduleFiles": [
+            {
+                "entries": [
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 23,
+                        "durationMicroseconds": 1,
+                        "errorMessage": "Could not find property \"fill\".",
+                        "functionName": "fill",
+                        "line": 12
+                    }
+                ],
+                "filepath": "/home/errera/utfpr/sistemasOperacionais/dashboard-os/viewTest/test/main.qml"
+            }
+        ],
+        "moduleId": "MyApp(MyProject)"
+    }
+]

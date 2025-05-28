@@ -1,0 +1,12 @@
+--bare
+-I
+/home/errera/utfpr/sistemasOperacionais/dashboard-os/viewTest/test/graph/build
+-I
+/home/errera/Qt/6.9.0/gcc_64/qml
+--resource
+/home/errera/utfpr/sistemasOperacionais/dashboard-os/viewTest/test/graph/build/.qt/rcc/qmake_MyApp.qrc
+--resource
+/home/errera/utfpr/sistemasOperacionais/dashboard-os/viewTest/test/graph/build/.qt/rcc/app_raw_qml_0.qrc
+/home/errera/utfpr/sistemasOperacionais/dashboard-os/viewTest/test/graph/main.qml
+--json
+/home/errera/utfpr/sistemasOperacionais/dashboard-os/viewTest/test/graph/build/app_qmllint.json

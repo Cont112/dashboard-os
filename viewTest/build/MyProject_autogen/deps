@@ -157,6 +157,21 @@ MyProject_autogen/timestamp: \
 	/home/errera/Qt/6.9.0/gcc_64/lib/cmake/Qt6/QtPublicToolHelpers.cmake \
 	/home/errera/Qt/6.9.0/gcc_64/lib/cmake/Qt6/QtPublicWalkLibsHelpers.cmake \
 	/home/errera/Qt/6.9.0/gcc_64/lib/cmake/Qt6/QtPublicWindowsHelpers.cmake \
+	/home/errera/Qt/6.9.0/gcc_64/lib/cmake/Qt6Charts/Qt6ChartsAdditionalTargetInfo.cmake \
+	/home/errera/Qt/6.9.0/gcc_64/lib/cmake/Qt6Charts/Qt6ChartsConfig.cmake \
+	/home/errera/Qt/6.9.0/gcc_64/lib/cmake/Qt6Charts/Qt6ChartsConfigVersion.cmake \
+	/home/errera/Qt/6.9.0/gcc_64/lib/cmake/Qt6Charts/Qt6ChartsConfigVersionImpl.cmake \
+	/home/errera/Qt/6.9.0/gcc_64/lib/cmake/Qt6Charts/Qt6ChartsDependencies.cmake \
+	/home/errera/Qt/6.9.0/gcc_64/lib/cmake/Qt6Charts/Qt6ChartsTargets-relwithdebinfo.cmake \
+	/home/errera/Qt/6.9.0/gcc_64/lib/cmake/Qt6Charts/Qt6ChartsTargets.cmake \
+	/home/errera/Qt/6.9.0/gcc_64/lib/cmake/Qt6Charts/Qt6ChartsVersionlessAliasTargets.cmake \
+	/home/errera/Qt/6.9.0/gcc_64/lib/cmake/Qt6ChartsPrivate/Qt6ChartsPrivateAdditionalTargetInfo.cmake \
+	/home/errera/Qt/6.9.0/gcc_64/lib/cmake/Qt6ChartsPrivate/Qt6ChartsPrivateConfig.cmake \
+	/home/errera/Qt/6.9.0/gcc_64/lib/cmake/Qt6ChartsPrivate/Qt6ChartsPrivateConfigVersion.cmake \
+	/home/errera/Qt/6.9.0/gcc_64/lib/cmake/Qt6ChartsPrivate/Qt6ChartsPrivateConfigVersionImpl.cmake \
+	/home/errera/Qt/6.9.0/gcc_64/lib/cmake/Qt6ChartsPrivate/Qt6ChartsPrivateDependencies.cmake \
+	/home/errera/Qt/6.9.0/gcc_64/lib/cmake/Qt6ChartsPrivate/Qt6ChartsPrivateTargets.cmake \
+	/home/errera/Qt/6.9.0/gcc_64/lib/cmake/Qt6ChartsPrivate/Qt6ChartsPrivateVersionlessAliasTargets.cmake \
 	/home/errera/Qt/6.9.0/gcc_64/lib/cmake/Qt6Concurrent/Qt6ConcurrentAdditionalTargetInfo.cmake \
 	/home/errera/Qt/6.9.0/gcc_64/lib/cmake/Qt6Concurrent/Qt6ConcurrentConfig.cmake \
 	/home/errera/Qt/6.9.0/gcc_64/lib/cmake/Qt6Concurrent/Qt6ConcurrentConfigVersion.cmake \
@@ -415,6 +430,25 @@ MyProject_autogen/timestamp: \
 	/home/errera/Qt/6.9.0/gcc_64/lib/cmake/Qt6OpenGLPrivate/Qt6OpenGLPrivateConfigVersion.cmake \
 	/home/errera/Qt/6.9.0/gcc_64/lib/cmake/Qt6OpenGLPrivate/Qt6OpenGLPrivateConfigVersionImpl.cmake \
 	/home/errera/Qt/6.9.0/gcc_64/lib/cmake/Qt6OpenGLPrivate/Qt6OpenGLPrivateDependencies.cmake \
+	/home/errera/Qt/6.9.0/gcc_64/lib/cmake/Qt6OpenGLWidgets/Qt6OpenGLWidgetsAdditionalTargetInfo.cmake \
+	/home/errera/Qt/6.9.0/gcc_64/lib/cmake/Qt6OpenGLWidgets/Qt6OpenGLWidgetsConfig.cmake \
+	/home/errera/Qt/6.9.0/gcc_64/lib/cmake/Qt6OpenGLWidgets/Qt6OpenGLWidgetsConfigVersion.cmake \
+	/home/errera/Qt/6.9.0/gcc_64/lib/cmake/Qt6OpenGLWidgets/Qt6OpenGLWidgetsConfigVersionImpl.cmake \
+	/home/errera/Qt/6.9.0/gcc_64/lib/cmake/Qt6OpenGLWidgets/Qt6OpenGLWidgetsDependencies.cmake \
+	/home/errera/Qt/6.9.0/gcc_64/lib/cmake/Qt6OpenGLWidgets/Qt6OpenGLWidgetsTargets-relwithdebinfo.cmake \
+	/home/errera/Qt/6.9.0/gcc_64/lib/cmake/Qt6OpenGLWidgets/Qt6OpenGLWidgetsTargets.cmake \
+	/home/errera/Qt/6.9.0/gcc_64/lib/cmake/Qt6OpenGLWidgets/Qt6OpenGLWidgetsVersionlessAliasTargets.cmake \
+	/home/errera/Qt/6.9.0/gcc_64/lib/cmake/Qt6OpenGLWidgetsPrivate/Qt6OpenGLWidgetsPrivateAdditionalTargetInfo.cmake \
+	/home/errera/Qt/6.9.0/gcc_64/lib/cmake/Qt6OpenGLWidgetsPrivate/Qt6OpenGLWidgetsPrivateConfig.cmake \
+	/home/errera/Qt/6.9.0/gcc_64/lib/cmake/Qt6OpenGLWidgetsPrivate/Qt6OpenGLWidgetsPrivateConfigVersion.cmake \
+	/home/errera/Qt/6.9.0/gcc_64/lib/cmake/Qt6OpenGLWidgetsPrivate/Qt6OpenGLWidgetsPrivateConfigVersionImpl.cmake \
+	/home/errera/Qt/6.9.0/gcc_64/lib/cmake/Qt6OpenGLWidgetsPrivate/Qt6OpenGLWidgetsPrivateDependencies.cmake \
+	/home/errera/Qt/6.9.0/gcc_64/lib/cmake/Qt6OpenGLWidgetsPrivate/Qt6OpenGLWidgetsPrivateTargets.cmake \
+	/home/errera/Qt/6.9.0/gcc_64/lib/cmake/Qt6OpenGLWidgetsPrivate/Qt6OpenGLWidgetsPrivateVersionlessAliasTargets.cmake \
+	/home/errera/Qt/6.9.0/gcc_64/lib/cmake/Qt6Qml/QmlPlugins/Qt6GraphspluginAdditionalTargetInfo.cmake \
+	/home/errera/Qt/6.9.0/gcc_64/lib/cmake/Qt6Qml/QmlPlugins/Qt6GraphspluginConfig.cmake \
+	/home/errera/Qt/6.9.0/gcc_64/lib/cmake/Qt6Qml/QmlPlugins/Qt6GraphspluginTargets-relwithdebinfo.cmake \
+	/home/errera/Qt/6.9.0/gcc_64/lib/cmake/Qt6Qml/QmlPlugins/Qt6GraphspluginTargets.cmake \
 	/home/errera/Qt/6.9.0/gcc_64/lib/cmake/Qt6Qml/QmlPlugins/Qt6LabsPlatformpluginAdditionalTargetInfo.cmake \
 	/home/errera/Qt/6.9.0/gcc_64/lib/cmake/Qt6Qml/QmlPlugins/Qt6LabsPlatformpluginConfig.cmake \
 	/home/errera/Qt/6.9.0/gcc_64/lib/cmake/Qt6Qml/QmlPlugins/Qt6LabsPlatformpluginTargets-relwithdebinfo.cmake \
@@ -838,6 +872,28 @@ MyProject_autogen/timestamp: \
 	/home/errera/Qt/6.9.0/gcc_64/lib/cmake/Qt6QuickTools/Qt6QuickToolsTargets-relwithdebinfo.cmake \
 	/home/errera/Qt/6.9.0/gcc_64/lib/cmake/Qt6QuickTools/Qt6QuickToolsTargets.cmake \
 	/home/errera/Qt/6.9.0/gcc_64/lib/cmake/Qt6QuickTools/Qt6QuickToolsVersionlessTargets.cmake \
+	/home/errera/Qt/6.9.0/gcc_64/lib/cmake/Qt6Widgets/Qt6WidgetsAdditionalTargetInfo.cmake \
+	/home/errera/Qt/6.9.0/gcc_64/lib/cmake/Qt6Widgets/Qt6WidgetsConfig.cmake \
+	/home/errera/Qt/6.9.0/gcc_64/lib/cmake/Qt6Widgets/Qt6WidgetsConfigVersion.cmake \
+	/home/errera/Qt/6.9.0/gcc_64/lib/cmake/Qt6Widgets/Qt6WidgetsConfigVersionImpl.cmake \
+	/home/errera/Qt/6.9.0/gcc_64/lib/cmake/Qt6Widgets/Qt6WidgetsDependencies.cmake \
+	/home/errera/Qt/6.9.0/gcc_64/lib/cmake/Qt6Widgets/Qt6WidgetsMacros.cmake \
+	/home/errera/Qt/6.9.0/gcc_64/lib/cmake/Qt6Widgets/Qt6WidgetsPlugins.cmake \
+	/home/errera/Qt/6.9.0/gcc_64/lib/cmake/Qt6Widgets/Qt6WidgetsTargets-relwithdebinfo.cmake \
+	/home/errera/Qt/6.9.0/gcc_64/lib/cmake/Qt6Widgets/Qt6WidgetsTargets.cmake \
+	/home/errera/Qt/6.9.0/gcc_64/lib/cmake/Qt6Widgets/Qt6WidgetsVersionlessAliasTargets.cmake \
+	/home/errera/Qt/6.9.0/gcc_64/lib/cmake/Qt6WidgetsPrivate/Qt6WidgetsPrivateConfig.cmake \
+	/home/errera/Qt/6.9.0/gcc_64/lib/cmake/Qt6WidgetsPrivate/Qt6WidgetsPrivateConfigVersion.cmake \
+	/home/errera/Qt/6.9.0/gcc_64/lib/cmake/Qt6WidgetsPrivate/Qt6WidgetsPrivateConfigVersionImpl.cmake \
+	/home/errera/Qt/6.9.0/gcc_64/lib/cmake/Qt6WidgetsPrivate/Qt6WidgetsPrivateDependencies.cmake \
+	/home/errera/Qt/6.9.0/gcc_64/lib/cmake/Qt6WidgetsTools/Qt6WidgetsToolsAdditionalTargetInfo.cmake \
+	/home/errera/Qt/6.9.0/gcc_64/lib/cmake/Qt6WidgetsTools/Qt6WidgetsToolsConfig.cmake \
+	/home/errera/Qt/6.9.0/gcc_64/lib/cmake/Qt6WidgetsTools/Qt6WidgetsToolsConfigVersion.cmake \
+	/home/errera/Qt/6.9.0/gcc_64/lib/cmake/Qt6WidgetsTools/Qt6WidgetsToolsConfigVersionImpl.cmake \
+	/home/errera/Qt/6.9.0/gcc_64/lib/cmake/Qt6WidgetsTools/Qt6WidgetsToolsDependencies.cmake \
+	/home/errera/Qt/6.9.0/gcc_64/lib/cmake/Qt6WidgetsTools/Qt6WidgetsToolsTargets-relwithdebinfo.cmake \
+	/home/errera/Qt/6.9.0/gcc_64/lib/cmake/Qt6WidgetsTools/Qt6WidgetsToolsTargets.cmake \
+	/home/errera/Qt/6.9.0/gcc_64/lib/cmake/Qt6WidgetsTools/Qt6WidgetsToolsVersionlessTargets.cmake \
 	/home/errera/utfpr/sistemasOperacionais/dashboard-os/viewTest/CMakeLists.txt \
 	/home/errera/utfpr/sistemasOperacionais/dashboard-os/viewTest/back.cpp \
 	/home/errera/utfpr/sistemasOperacionais/dashboard-os/viewTest/back.h \

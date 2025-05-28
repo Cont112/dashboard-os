@@ -1,0 +1,36 @@
+[
+    {
+        "moduleFiles": [
+            {
+                "entries": [
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 23,
+                        "durationMicroseconds": 114,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 13
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 21,
+                        "durationMicroseconds": 47,
+                        "errorMessage": "Cannot access value for name dataProvider",
+                        "functionName": "target",
+                        "line": 31
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 13,
+                        "durationMicroseconds": 235,
+                        "errorMessage": "Cannot access value for name dataProvider",
+                        "functionName": "onDataChanged",
+                        "line": 32
+                    }
+                ],
+                "filepath": "main.qml"
+            }
+        ],
+        "moduleId": "MyApp(app)"
+    }
+]

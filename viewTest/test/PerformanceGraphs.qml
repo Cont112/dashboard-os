@@ -1,45 +1,35 @@
 import QtQuick
 import QtQuick.Controls
-import QtQuick.Layouts
-import QtCharts
+import QtGraphs
 
-Item {
-    ColumnLayout {
-        spacing: 10
+ApplicationWindow {
+    visible: true
+    width: 640
+    height: 480
+    title: "Simple Line Graph"
+
+    GraphsView {
         anchors.fill: parent
 
-        Text { 
-            text: "CPU Usage (%)" 
-            font.bold: true 
-            Layout.alignment: Qt.AlignHCenter
+        axisX: ValueAxis {
+            min: 0
+            max: 5
         }
-        ChartView {
-            id: cpuChart
-            Layout.fillWidth: true
-            Layout.fillHeight: true
-            antialiasing: true
-            // Remove title to avoid ChartTitle crash
-            // title: "CPU Usage Over Time"
 
-            ValueAxis {
-                id: xAxisCPU
-                min: 0
-                max: 10
-                titleText: "" // Disable axis title
-            }
-            ValueAxis {
-                id: yAxisCPU
-                min: 0
-                max: 100
-                titleText: "" // Disable axis title
-            }
-            LineSeries {
-                axisX: xAxisCPU
-                axisY: yAxisCPU
-                name: "CPU Usage"
-                XYPoint { x: 0; y: 0 }
-                XYPoint { x: 10; y: 100 }
-            }
+        axisY: ValueAxis {
+            min: 0
+            max: 10
+        }
+
+        LineSeries {
+            name: "Sample Data"
+
+            XYPoint { x: 0; y: 0 }
+            XYPoint { x: 1; y: 1 }
+            XYPoint { x: 2; y: 4 }
+            XYPoint { x: 3; y: 2 }
+            XYPoint { x: 4; y: 8 }
+            XYPoint { x: 5; y: 10 }
         }
     }
 }

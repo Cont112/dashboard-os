@@ -1,4 +1,4 @@
-set(qml_import_scanner_imports_count 28)
+set(qml_import_scanner_imports_count 31)
 set(qml_import_scanner_import_0 "CLASSNAME;QtQuick2Plugin;LINKTARGET;Qt6::qtquick2plugin;NAME;QtQuick;PATH;/home/errera/Qt/6.9.0/gcc_64/qml/QtQuick;PLUGIN;qtquick2plugin;PLUGINISOPTIONAL;;PREFER;:/qt-project.org/imports/QtQuick/;RELATIVEPATH;QtQuick;TYPE;module;")
 set(qml_import_scanner_import_1 "CLASSNAME;QtQmlPlugin;LINKTARGET;Qt6::qmlplugin;NAME;QtQml;PATH;/home/errera/Qt/6.9.0/gcc_64/qml/QtQml;PLUGIN;qmlplugin;PLUGINISOPTIONAL;;PREFER;:/qt-project.org/imports/QtQml/;RELATIVEPATH;QtQml;TYPE;module;")
 set(qml_import_scanner_import_2 "NAME;QML;PATH;/home/errera/Qt/6.9.0/gcc_64/qml/QML;PREFER;:/qt-project.org/imports/QML/;RELATIVEPATH;QML;TYPE;module;")
@@ -27,4 +27,7 @@ set(qml_import_scanner_import_24 "CLASSNAME;QtQuickLayoutsPlugin;LINKTARGET;Qt6:
 set(qml_import_scanner_import_25 "CLASSNAME;QmlShapesPlugin;LINKTARGET;Qt6::qmlshapesplugin;NAME;QtQuick.Shapes;PATH;/home/errera/Qt/6.9.0/gcc_64/qml/QtQuick/Shapes;PLUGIN;qmlshapesplugin;PREFER;:/qt-project.org/imports/QtQuick/Shapes/;RELATIVEPATH;QtQuick/Shapes;TYPE;module;")
 set(qml_import_scanner_import_26 "CLASSNAME;QtQuickControls2BasicStyleImplPlugin;COMPONENTS;/home/errera/Qt/6.9.0/gcc_64/qml/QtQuick/Controls/Basic/impl/TextEditingContextMenu.qml;LINKTARGET;Qt6::qtquickcontrols2basicstyleimplplugin;NAME;QtQuick.Controls.Basic.impl;PATH;/home/errera/Qt/6.9.0/gcc_64/qml/QtQuick/Controls/Basic/impl;PLUGIN;qtquickcontrols2basicstyleimplplugin;PLUGINISOPTIONAL;;PREFER;:/qt-project.org/imports/QtQuick/Controls/Basic/impl/;RELATIVEPATH;QtQuick/Controls/Basic/impl;TYPE;module;")
 set(qml_import_scanner_import_27 "CLASSNAME;QtQmlLabsModelsPlugin;LINKTARGET;Qt6::labsmodelsplugin;NAME;Qt.labs.qmlmodels;PATH;/home/errera/Qt/6.9.0/gcc_64/qml/Qt/labs/qmlmodels;PLUGIN;labsmodelsplugin;PLUGINISOPTIONAL;;PREFER;:/qt-project.org/imports/Qt/labs/qmlmodels/;RELATIVEPATH;Qt/labs/qmlmodels;TYPE;module;")
+set(qml_import_scanner_import_28 "CLASSNAME;QtChartsQml2Plugin;LINKTARGET;Qt6::qtchartsqml2;NAME;QtCharts;PATH;/home/errera/Qt/6.9.0/gcc_64/qml/QtCharts;PLUGIN;qtchartsqml2plugin;PLUGINISOPTIONAL;;PREFER;:/qt-project.org/imports/QtCharts/;RELATIVEPATH;QtCharts;TYPE;module;")
+set(qml_import_scanner_import_29 "CLASSNAME;QtGraphsPlugin;LINKTARGET;Qt6::Graphsplugin;NAME;QtGraphs;PATH;/home/errera/Qt/6.9.0/gcc_64/qml/QtGraphs;PLUGIN;graphsplugin;PLUGINISOPTIONAL;;PREFER;:/qt-project.org/imports/QtGraphs/;RELATIVEPATH;QtGraphs;TYPE;module;")
+set(qml_import_scanner_import_30 "CLASSNAME;QQuick3DPlugin;LINKTARGET;Qt6::qquick3dplugin;NAME;QtQuick3D;PATH;/home/errera/Qt/6.9.0/gcc_64/qml/QtQuick3D;PLUGIN;qquick3dplugin;PREFER;:/qt-project.org/imports/QtQuick3D/;RELATIVEPATH;QtQuick3D;TYPE;module;")
 

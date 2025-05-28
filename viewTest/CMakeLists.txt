@@ -26,6 +26,7 @@ qt_add_qml_module(MyProject
         test/PerformanceGraphs.qml
         test/NavigationBar.qml
         test/ProcessTable.qml
+        test/main.qml
     RESOURCE_PREFIX /  # Ensures paths like qrc:/ExampleA/Main.qml work
 )
 

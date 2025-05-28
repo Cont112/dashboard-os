@@ -1,21 +1,35 @@
-import QtQuick 2.15
-import QtQuick.Controls 2.15
-import QtCharts 2.15
+import QtQuick
+import QtQuick.Window
+import QtGraphs
 
-ApplicationWindow {
+Window {
+    width: 640
+    height: 480
     visible: true
-    width: 400
-    height: 300
-    title: "QtCharts test"
+    title: "Minimal Qt Graphs Example"
 
-    ChartView {
+    LineGraph {
         anchors.fill: parent
-        ScatterSeries {
-            id: scatterSeries
-            Component.onCompleted: {
-                append(0,0);
-                append(1,1);
+
+        LineSeries {
+            axisX: ValueAxis {
+                min: 0
+                max: 5
             }
+
+            axisY: ValueAxis {
+                min: 0
+                max: 10
+            }
+
+            points: [
+                Point { x: 0; y: 0 },
+                Point { x: 1; y: 3 },
+                Point { x: 2; y: 5 },
+                Point { x: 3; y: 4 },
+                Point { x: 4; y: 7 },
+                Point { x: 5; y: 6 }
+            ]
         }
     }
 }

@@ -1,0 +1,5 @@
+--resource
+/home/errera/utfpr/sistemasOperacionais/dashboard-os/viewTest/test/graph/build/.qt/rcc/qmake_MyApp.qrc
+--resource
+/home/errera/utfpr/sistemasOperacionais/dashboard-os/viewTest/test/graph/build/.qt/rcc/app_raw_qml_0.qrc
+/MyApp/main.qml

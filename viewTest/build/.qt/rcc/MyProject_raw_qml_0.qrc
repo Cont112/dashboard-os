@@ -4,6 +4,7 @@
     <file alias="test/PerformanceGraphs.qml">/home/errera/utfpr/sistemasOperacionais/dashboard-os/viewTest/test/PerformanceGraphs.qml</file>
     <file alias="test/NavigationBar.qml">/home/errera/utfpr/sistemasOperacionais/dashboard-os/viewTest/test/NavigationBar.qml</file>
     <file alias="test/ProcessTable.qml">/home/errera/utfpr/sistemasOperacionais/dashboard-os/viewTest/test/ProcessTable.qml</file>
+    <file alias="test/main.qml">/home/errera/utfpr/sistemasOperacionais/dashboard-os/viewTest/test/main.qml</file>
   </qresource>
 </RCC>
 
