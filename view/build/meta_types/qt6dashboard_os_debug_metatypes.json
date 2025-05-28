@@ -1,0 +1,26 @@
+[
+    {
+        "classes": [
+            {
+                "classInfos": [
+                    {
+                        "name": "QML.Element",
+                        "value": "auto"
+                    }
+                ],
+                "className": "TableModel",
+                "lineNumber": 7,
+                "object": true,
+                "qualifiedClassName": "TableModel",
+                "superClasses": [
+                    {
+                        "access": "public",
+                        "name": "QAbstractTableModel"
+                    }
+                ]
+            }
+        ],
+        "inputFile": "processmodel.h",
+        "outputRevision": 69
+    }
+]

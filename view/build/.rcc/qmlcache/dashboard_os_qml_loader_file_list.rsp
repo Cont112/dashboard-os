@@ -1,0 +1,10 @@
+--resource
+/home/errera/utfpr/sistemasOperacionais/dashboard-os/view/build/.qt/rcc/qmake_DashboardOS.qrc
+--resource
+/home/errera/utfpr/sistemasOperacionais/dashboard-os/view/build/.qt/rcc/dashboard_os_raw_qml_0.qrc
+/DashboardOS/qml/Main.qml
+/DashboardOS/qml/NavigationBar.qml
+/DashboardOS/qml/ProcessTable.qml
+/DashboardOS/qml/PerformanceGraphs.qml
+/DashboardOS/qml/BasicGraph.qml
+/DashboardOS/qml/StorageTable.qml

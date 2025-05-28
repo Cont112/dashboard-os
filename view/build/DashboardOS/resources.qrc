@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/qml">
+        <file>qml/Main.qml</file>
+        <file>qml/NavigatonBar.qml</file>
+        <file>qml/ProcessTable.qml</file>
+        <file>qml/PerformanceGraph.qml</file>
+        <file>qml/BasicGraph.qml</file>
+        <file>qml/StorageList.qml</file>
+    </qresource>
+</RCC>

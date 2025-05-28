@@ -1,0 +1,196 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Debug-274e13ef99760585a2a4.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "dashboard_os",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "all_aotstats::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-all_aotstats-Debug-c9546fcf0fa6ac4298da.json",
+					"name" : "all_aotstats",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "all_qmllint::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-all_qmllint-Debug-91a4f6be7e85a6491ce0.json",
+					"name" : "all_qmllint",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "all_qmllint_json::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-all_qmllint_json-Debug-67d1bd47e126f0af8786.json",
+					"name" : "all_qmllint_json",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "all_qmllint_module::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-all_qmllint_module-Debug-0f07a779ecc79daa2023.json",
+					"name" : "all_qmllint_module",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "all_qmltyperegistrations::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-all_qmltyperegistrations-Debug-96de483edc157e84dcb5.json",
+					"name" : "all_qmltyperegistrations",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "dashboard_os::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-dashboard_os-Debug-2dc6182c134c802877b2.json",
+					"name" : "dashboard_os",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "dashboard_os_autogen::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-dashboard_os_autogen-Debug-30cf8ae71e150c489e30.json",
+					"name" : "dashboard_os_autogen",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "dashboard_os_autogen_timestamp_deps::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-dashboard_os_autogen_timestamp_deps-Debug-a94711b2ae2215c0434f.json",
+					"name" : "dashboard_os_autogen_timestamp_deps",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "dashboard_os_copy_qml::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-dashboard_os_copy_qml-Debug-f446553376830bfcc79f.json",
+					"name" : "dashboard_os_copy_qml",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "dashboard_os_copy_res::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-dashboard_os_copy_res-Debug-e46d658920bf3f7ba591.json",
+					"name" : "dashboard_os_copy_res",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "dashboard_os_other_files::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-dashboard_os_other_files-Debug-5884d41aecb10adcde57.json",
+					"name" : "dashboard_os_other_files",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "dashboard_os_qmllint::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-dashboard_os_qmllint-Debug-e7fb557899ce9ef391f0.json",
+					"name" : "dashboard_os_qmllint",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "dashboard_os_qmllint_json::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-dashboard_os_qmllint_json-Debug-0c20c4e5dcfd087ecde5.json",
+					"name" : "dashboard_os_qmllint_json",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "dashboard_os_qmllint_module::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-dashboard_os_qmllint_module-Debug-4721dbe6bcfec317ab24.json",
+					"name" : "dashboard_os_qmllint_module",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "dashboard_os_qmltyperegistration::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-dashboard_os_qmltyperegistration-Debug-d43c2bbce7f51d240a16.json",
+					"name" : "dashboard_os_qmltyperegistration",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "module_dashboard_os_aotstats_target::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-module_dashboard_os_aotstats_target-Debug-27d5d0af21e8bc6f8499.json",
+					"name" : "module_dashboard_os_aotstats_target",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/errera/utfpr/sistemasOperacionais/dashboard-os/view/build",
+		"source" : "/home/errera/utfpr/sistemasOperacionais/dashboard-os/view"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 6
+	}
+}

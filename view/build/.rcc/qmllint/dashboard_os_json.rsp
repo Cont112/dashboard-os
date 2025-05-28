@@ -1,0 +1,17 @@
+--bare
+-I
+/home/errera/utfpr/sistemasOperacionais/dashboard-os/view/build
+-I
+/home/errera/Qt/6.9.0/gcc_64/qml
+--resource
+/home/errera/utfpr/sistemasOperacionais/dashboard-os/view/build/.qt/rcc/qmake_DashboardOS.qrc
+--resource
+/home/errera/utfpr/sistemasOperacionais/dashboard-os/view/build/.qt/rcc/dashboard_os_raw_qml_0.qrc
+/home/errera/utfpr/sistemasOperacionais/dashboard-os/view/qml/Main.qml
+/home/errera/utfpr/sistemasOperacionais/dashboard-os/view/qml/NavigationBar.qml
+/home/errera/utfpr/sistemasOperacionais/dashboard-os/view/qml/ProcessTable.qml
+/home/errera/utfpr/sistemasOperacionais/dashboard-os/view/qml/PerformanceGraphs.qml
+/home/errera/utfpr/sistemasOperacionais/dashboard-os/view/qml/BasicGraph.qml
+/home/errera/utfpr/sistemasOperacionais/dashboard-os/view/qml/StorageTable.qml
+--json
+/home/errera/utfpr/sistemasOperacionais/dashboard-os/view/build/dashboard_os_qmllint.json

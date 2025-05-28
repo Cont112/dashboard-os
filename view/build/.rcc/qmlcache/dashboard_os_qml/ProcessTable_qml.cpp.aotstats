@@ -1,0 +1,28 @@
+[
+    {
+        "moduleFiles": [
+            {
+                "entries": [
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 23,
+                        "durationMicroseconds": 158,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 8
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 23,
+                        "durationMicroseconds": 260,
+                        "errorMessage": "Cannot access value for name process",
+                        "functionName": "text",
+                        "line": 19
+                    }
+                ],
+                "filepath": "ProcessTable.qml"
+            }
+        ],
+        "moduleId": "DashboardOS(dashboard_os)"
+    }
+]

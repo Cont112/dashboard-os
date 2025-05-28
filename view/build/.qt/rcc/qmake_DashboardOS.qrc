@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="/DashboardOS">
+    <file alias="qmldir">/home/errera/utfpr/sistemasOperacionais/dashboard-os/view/build/DashboardOS/qmldir</file>
+  </qresource>
+</RCC>
+

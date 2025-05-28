@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="/">
+    <file alias="/DashboardOS">/home/errera/utfpr/sistemasOperacionais/dashboard-os/view/build/DashboardOS</file>
+
+  </qresource>
+</RCC>

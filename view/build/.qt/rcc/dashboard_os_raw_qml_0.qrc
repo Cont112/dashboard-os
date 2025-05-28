@@ -1,0 +1,11 @@
+<RCC>
+  <qresource prefix="/DashboardOS/">
+    <file alias="qml/Main.qml">/home/errera/utfpr/sistemasOperacionais/dashboard-os/view/qml/Main.qml</file>
+    <file alias="qml/NavigationBar.qml">/home/errera/utfpr/sistemasOperacionais/dashboard-os/view/qml/NavigationBar.qml</file>
+    <file alias="qml/ProcessTable.qml">/home/errera/utfpr/sistemasOperacionais/dashboard-os/view/qml/ProcessTable.qml</file>
+    <file alias="qml/PerformanceGraphs.qml">/home/errera/utfpr/sistemasOperacionais/dashboard-os/view/qml/PerformanceGraphs.qml</file>
+    <file alias="qml/BasicGraph.qml">/home/errera/utfpr/sistemasOperacionais/dashboard-os/view/qml/BasicGraph.qml</file>
+    <file alias="qml/StorageTable.qml">/home/errera/utfpr/sistemasOperacionais/dashboard-os/view/qml/StorageTable.qml</file>
+  </qresource>
+</RCC>
+

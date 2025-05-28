@@ -1,0 +1,10 @@
+module DashboardOS
+typeinfo dashboard_os.qmltypes
+prefer :/DashboardOS/
+Main 1.0 qml/Main.qml
+NavigationBar 1.0 qml/NavigationBar.qml
+ProcessTable 1.0 qml/ProcessTable.qml
+PerformanceGraphs 1.0 qml/PerformanceGraphs.qml
+BasicGraph 1.0 qml/BasicGraph.qml
+StorageTable 1.0 qml/StorageTable.qml
+

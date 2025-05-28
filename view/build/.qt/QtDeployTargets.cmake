@@ -1,0 +1,2 @@
+set(__QT_DEPLOY_TARGET_dashboard_os_FILE /home/errera/utfpr/sistemasOperacionais/dashboard-os/view/build/dashboard_os)
+set(__QT_DEPLOY_TARGET_dashboard_os_TYPE EXECUTABLE)

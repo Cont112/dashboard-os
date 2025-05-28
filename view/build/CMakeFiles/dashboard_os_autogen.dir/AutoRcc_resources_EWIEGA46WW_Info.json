@@ -1,0 +1,28 @@
+{
+	"BUILD_DIR" : "/home/errera/utfpr/sistemasOperacionais/dashboard-os/view/build/dashboard_os_autogen",
+	"CMAKE_BINARY_DIR" : "/home/errera/utfpr/sistemasOperacionais/dashboard-os/view/build",
+	"CMAKE_CURRENT_BINARY_DIR" : "/home/errera/utfpr/sistemasOperacionais/dashboard-os/view/build",
+	"CMAKE_CURRENT_SOURCE_DIR" : "/home/errera/utfpr/sistemasOperacionais/dashboard-os/view",
+	"CMAKE_SOURCE_DIR" : "/home/errera/utfpr/sistemasOperacionais/dashboard-os/view",
+	"GENERATOR" : "Ninja",
+	"INCLUDE_DIR" : "/home/errera/utfpr/sistemasOperacionais/dashboard-os/view/build/dashboard_os_autogen/include",
+	"INPUTS" : 
+	[
+		"/home/errera/utfpr/sistemasOperacionais/dashboard-os/view/qml/Main.qml",
+		"/home/errera/utfpr/sistemasOperacionais/dashboard-os/view/qml/PerformanceGraphs.qml",
+		"/home/errera/utfpr/sistemasOperacionais/dashboard-os/view/qml/ProcessTable.qml",
+		"/home/errera/utfpr/sistemasOperacionais/dashboard-os/view/qml/BasicGraph.qml",
+		"/home/errera/utfpr/sistemasOperacionais/dashboard-os/view/qml/NavigationBar.qml",
+		"/home/errera/utfpr/sistemasOperacionais/dashboard-os/view/qml/StorageTable.qml"
+	],
+	"LOCK_FILE" : "/home/errera/utfpr/sistemasOperacionais/dashboard-os/view/build/CMakeFiles/dashboard_os_autogen.dir/AutoRcc_resources_EWIEGA46WW_Lock.lock",
+	"MULTI_CONFIG" : false,
+	"OPTIONS" : [ "-name", "resources" ],
+	"OUTPUT_CHECKSUM" : "EWIEGA46WW",
+	"OUTPUT_NAME" : "qrc_resources.cpp",
+	"RCC_EXECUTABLE" : "/home/errera/Qt/6.9.0/gcc_64/libexec/rcc",
+	"RCC_LIST_OPTIONS" : [ "--list" ],
+	"SETTINGS_FILE" : "/home/errera/utfpr/sistemasOperacionais/dashboard-os/view/build/CMakeFiles/dashboard_os_autogen.dir/AutoRcc_resources_EWIEGA46WW_Used.txt",
+	"SOURCE" : "/home/errera/utfpr/sistemasOperacionais/dashboard-os/view/resources.qrc",
+	"VERBOSITY" : 0
+}
