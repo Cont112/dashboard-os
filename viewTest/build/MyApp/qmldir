@@ -1,8 +1,0 @@
-module MyApp
-typeinfo MyProject.qmltypes
-prefer :/MyApp/
-Main 1.0 test/Main.qml
-PerformanceGraphs 1.0 test/PerformanceGraphs.qml
-NavigationBar 1.0 test/NavigationBar.qml
-ProcessTable 1.0 test/ProcessTable.qml
-

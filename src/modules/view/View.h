@@ -1,44 +1,35 @@
+/**
+ * @file View.h
+ * @brief Header para a classe View
+ * @author Pedro Neves
+ */
+
 #ifndef VIEW_H
 #define VIEW_H
 
-#include <QMainWindow>
-#include <QTableWidget>
-#include <QChart>
-#include <QChartView>
-#include <QTimer>
-#include <QVector>
-#include "Model.h"
+#include <QObject>
+#include <QQmlApplicationEngine>
+#include "../model/Model.h"
 
-QT_CHARTS_USE_NAMESPACE
-
-class View : public QMainWindow {
+/**
+ * @brief Classe que implementa a interface de usuário do dashboard
+ * @details Essa classe é responsável por carregar o arquivo QML e exibir a interface do dashboard
+ */
+class View : public QObject {
     Q_OBJECT
+
 public:
-    explicit View(QWidget *parent = nullptr);
+    /**
+     * @brief Construtor da classe View
+     * @param model Ponteiro para o modelo de dados
+     * @param parent Ponteiro para o objeto pai (opcional)
+     */
+    View(Model* model, QObject *parent = nullptr);
+
     ~View();
-
-public slots:
-    void updateProcessList(const QVector<process_t>& processes);
-    void updateSystemStats(const QMap<QString, QVariant>& stats);
-    void handleProcessSelection(int row, int column);
-
-signals:
-    void userAction(const QString& action, const QVariant& data);
-
+    
 private:
-    void setupUI();
-    void createProcessTable();
-    void createSystemStatsPanel();
-    void createProcessDetailsPanel();
-    void updateCharts();
-
-    QTableWidget* processTable;
-    QChart* cpuChart;
-    QChart* memoryChart;
-    QChartView* cpuChartView;
-    QChartView* memoryChartView;
-    QWidget* systemStatsPanel;
-    QWidget* processDetailsPanel;
+    QQmlApplicationEngine engine;
 };
 
-#endif // VIEW_H
+#endif

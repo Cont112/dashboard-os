@@ -1,6 +1,5 @@
 #include "Processor.h"
-
-
+#include <unistd.h>  // For sysconf
 
 Processor::Processor(QObject *parent) : QThread(parent) {
     mutex.lock();
@@ -25,10 +24,9 @@ void Processor::start() {
 void Processor::stop() {
     mutex.lock();
     running = false;
-    dataAvailable.wakeOne();
+    wakeCondition.wakeOne(); // Acorda a thread para que ela termine a execução
     mutex.unlock();
 }
-
 
 void Processor::run() {
     qDebug() << "Processor started";
@@ -36,23 +34,19 @@ void Processor::run() {
     while (true) {
         {
             QMutexLocker locker(&mutex);
-            while (dataQueue.isEmpty() && running) {
-                dataAvailable.wait(&mutex);
-            }
-            
             if (!running) {
                 break;
+            }
+            
+            if (dataQueue.isEmpty()) {
+                wakeCondition.wait(&mutex);
+                if (!running) {
+                    break;
+                }
             }
         }
 
         processData();
-
-        {
-            QMutexLocker locker(&mutex);
-            if (!running) {
-                break;
-            }
-        }
     }
     
     qDebug() << "Processor stopped";
@@ -60,46 +54,128 @@ void Processor::run() {
 
 void Processor::onDataCollected(const QVector<process_t>& processes) {
     QMutexLocker locker(&mutex);
-    qDebug() << "Processor received data";
+    dataQueue.clear(); // Limpa a fila de dados
     for(const auto& process : processes) {
-        dataQueue.push_back(process);
+        dataQueue.push_back(process); // Adiciona os dados recebidos na fila de dados
     }
-    dataAvailable.wakeOne();
+    wakeCondition.wakeOne(); // Acorda a thread
 }
 
 void Processor::processData() {
     QMutexLocker locker(&mutex);
+    processedData.clear();
+    
     while(!dataQueue.empty()) {
         process_t process = dataQueue.front();
         dataQueue.pop_front();
+        
+        if (currentStats.total_physical_memory > 0) {
+            process.memory_details.memory_percentage = 
+                (process.memory_details.ram_memory * 100.0) / currentStats.total_physical_memory;
+        } else {
+            process.memory_details.memory_percentage = 0.0;
+        }
+        
         process.processed = true;
-        qDebug() << "Processing process:" << process.name << "PID:" << process.pid << "PPID:" << process.ppid << "Threads:" << process.threads.size();
-        for(const auto& thread : process.threads) {
-            qDebug() << "Thread:" << thread.tid << "CPU:" << thread.cpu << "State:" << thread.state << "Start time:" << thread.start_time;
+        processedData.push_back(process);
+    }
+
+    calculateProcessPercentages();
+    updateProcessStates();
+
+    emit dataProcessed(processedData);
+}
+
+void Processor::onSystemInfoCollected(const system_stats_t& stats) {
+    QMutexLocker locker(&mutex);
+    currentStats = stats;
+    
+    if (stats.total_physical_memory > 0) {
+
+        
+        // Calcula a porcentagem de uso de memória do sistema
+        currentStats.system_memory_usage = 
+            ((stats.total_physical_memory - stats.available_physical_memory) * 100.0) / stats.total_physical_memory;
+        
+        currentStats.total_processes = processedData.size();
+        currentStats.total_threads = 0;
+        for(const auto& proc : processedData) {
+            currentStats.total_threads += proc.threads.size();
+        }
+        
+        updateProcessStates();
+        
+        emit systemStatsUpdated(currentStats);
+    }
+    
+    
+    if (stats.total_physical_memory > 0 && !processedData.isEmpty()) {
+        for (auto& process : processedData) {
+            if (process.memory_details.memory_percentage == 0.0 && process.memory_details.ram_memory > 0) {
+                process.memory_details.memory_percentage = 
+                    (process.memory_details.ram_memory * 100.0) / stats.total_physical_memory;
+            }
+        }
+        
+        emit dataProcessed(processedData);
+    }
+}
+
+void Processor::updateProcessStates() {
+    currentStats.running_processes = 0;
+    currentStats.sleeping_processes = 0;
+    currentStats.stopped_processes = 0;
+    currentStats.zombie_processes = 0;
+    currentStats.idle_processes = 0;
+    
+    for(const auto& proc : processedData) {
+        if (proc.state == "R") {
+            currentStats.running_processes++;
+        } else if (proc.state == "S" || proc.state == "D") {
+            currentStats.sleeping_processes++;
+        } else if (proc.state == "T" || proc.state == "t") {
+            currentStats.stopped_processes++;
+        } else if (proc.state == "Z") {
+            currentStats.zombie_processes++;
+        } else if (proc.state == "I") {
+            currentStats.idle_processes++;
         }
     }
-
 }
 
-QString Processor::formatMemorySize(long long bytes) {
-    if (bytes < 1024) {
-        return QString::number(bytes) + " B";
-    }
-    if (bytes < 1024 * 1024) {
-        return QString::number(bytes / 1024.0, 'f', 2) + " KB";
-    }
-    if (bytes < 1024 * 1024 * 1024) { 
-        return QString::number(bytes / (1024.0 * 1024.0), 'f', 2) + " MB";
-    }
-    return QString::number(bytes / (1024.0 * 1024.0 * 1024.0), 'f', 2) + " GB";
-}
+void Processor::calculateProcessPercentages() {
 
-QString Processor::formatTime(long long seconds) {
-    if (seconds < 60) {
-        return QString::number(seconds) + "s";
+    double timeIntervalSeconds = UPDATE_INTERVAL / 1000.0;
+    long long clock = sysconf(_SC_CLK_TCK);
+    
+    if (clock <= 0) {
+        for (auto& process : processedData) {
+            process.cpu_percentage = 0.0;
+            previousCpuTime[process.pid] = process.utime + process.stime;
+        }
+        return;
     }
-    if (seconds < 3600) {
-        return QString::number(seconds / 60.0, 'f', 2) + "m";
+    
+    for (auto& process : processedData) {
+        long long currentProcessCpuTime = process.utime + process.stime;
+        
+        if (previousCpuTime.contains(process.pid)) {
+            long long previousProcessCpuTime = previousCpuTime[process.pid];
+            long long cpuTimeDelta = currentProcessCpuTime - previousProcessCpuTime;
+            
+            double processCpuSeconds = (double)cpuTimeDelta / clock;
+            
+            process.cpu_percentage = (processCpuSeconds / timeIntervalSeconds) * 100.0;
+            
+            if (process.cpu_percentage < 0.0) {
+                process.cpu_percentage = 0.0;
+            } else if (process.cpu_percentage > 200.0) {
+                process.cpu_percentage = 200.0;
+            }
+        } else {
+            process.cpu_percentage = 0.0;
+        }
+        
+        previousCpuTime[process.pid] = currentProcessCpuTime;
     }
-    return QString::number(seconds / 3600.0, 'f', 2) + "h";
 }
