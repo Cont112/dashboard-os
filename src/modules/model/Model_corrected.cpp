@@ -2,7 +2,6 @@
 #include <QDebug>
 #include <QDir>
 #include <QStandardPaths>
-#include <algorithm>
 
 Model::Model(QObject *parent) : QAbstractTableModel(parent), m_selectedProcessPid(-1) {
     collector = new Collector(this);

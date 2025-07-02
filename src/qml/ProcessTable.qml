@@ -10,6 +10,9 @@ Item {
     
     property real currentWidth: width
     
+    // Sinal para duplo clique em processo
+    signal processDoubleClicked(int pid)
+    
     onCurrentWidthChanged: {
         if (tableView) {
             tableView.forceLayout()
@@ -165,6 +168,13 @@ Item {
                         font.pointSize: 11
                         elide: Text.ElideRight
                         verticalAlignment: Text.AlignVCenter
+                    }
+
+                    MouseArea {
+                        anchors.fill: parent
+                        onDoubleClicked: {
+                            processTable.processDoubleClicked(model.pid)
+                        }
                     }
                 }
             }

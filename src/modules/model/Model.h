@@ -30,6 +30,12 @@ class Model : public QAbstractTableModel {
     Q_PROPERTY(int totalThreads READ totalThreads NOTIFY systemStatsChanged)
     Q_PROPERTY(QString totalMemoryMB READ totalMemoryMB NOTIFY systemStatsChanged)
     Q_PROPERTY(QString availableMemoryMB READ availableMemoryMB NOTIFY systemStatsChanged)
+    
+    // Novas propriedades para sistema de arquivos
+    Q_PROPERTY(QString currentDirectory READ currentDirectory NOTIFY filesystemChanged)
+    Q_PROPERTY(QVariantList partitions READ partitions NOTIFY filesystemChanged)
+    Q_PROPERTY(QVariantList directoryContents READ directoryContents NOTIFY filesystemChanged)
+    Q_PROPERTY(int selectedProcessPid READ selectedProcessPid WRITE setSelectedProcessPid NOTIFY selectedProcessChanged)
 
 public:
 
@@ -44,7 +50,14 @@ public:
         MemoryUsageRole,
         StateRole,
         UsernameRole,
-        ThreadsRole
+        ThreadsRole,
+        // Novos roles para informações de E/S
+        OpenFilesCountRole,
+        IpcResourcesCountRole,
+        ReadBytesRole,
+        WriteBytesRole,
+        ReadSyscallsRole,
+        WriteSyscallsRole
     };
 
     Model(QObject *parent = nullptr);
@@ -130,12 +143,89 @@ public:
      */
     QString availableMemoryMB() const { return QString::number(currentStats.available_physical_memory / (1024*1024)); }
 
+    // Novos métodos para sistema de arquivos
+    /**
+     * @brief Retorna o diretório atual sendo navegado
+     */
+    QString currentDirectory() const { return currentStats.filesystem_info.current_directory; }
+
+    /**
+     * @brief Retorna a lista de partições do sistema
+     */
+    QVariantList partitions() const;
+
+    /**
+     * @brief Retorna o conteúdo do diretório atual
+     */
+    QVariantList directoryContents() const;
+
+    /**
+     * @brief Retorna o PID do processo selecionado para detalhes
+     */
+    int selectedProcessPid() const { return m_selectedProcessPid; }
+
+    /**
+     * @brief Define o PID do processo selecionado para detalhes
+     */
+    void setSelectedProcessPid(int pid);
+
+    /**
+     * @brief Retorna informações detalhadas de E/S do processo selecionado
+     */
+    Q_INVOKABLE QVariantMap getProcessIODetails(int pid) const;
+
+    /**
+     * @brief Navega para um diretório específico
+     */
+    Q_INVOKABLE void navigateToDirectory(const QString& path);
+
+    /**
+     * @brief Navega para o diretório pai
+     */
+    Q_INVOKABLE void navigateToParent();
+
+    /**
+     * @brief Navega para o diretório home
+     */
+    Q_INVOKABLE void navigateToHome();
+
+    /**
+     * @brief Navega para o diretório raiz
+     */
+    Q_INVOKABLE void navigateToRoot();
+
+    /**
+     * @brief Atualiza informações de uma partição específica
+     */
+    Q_INVOKABLE void refreshPartitionInfo(const QString& device);
+
 signals:
     /**
      * @brief Sinal emitido quando os dados de sistema são atualizados
      * @details Esse sinal é conectado ao View para atualizar o overview do sistema no QML
      */
-    void systemStatsChanged();  
+    void systemStatsChanged();
+
+    /**
+     * @brief Sinal emitido quando os dados do sistema de arquivos são atualizados
+     */
+    void filesystemChanged();
+
+    /**
+     * @brief Sinal emitido quando o processo selecionado é alterado
+     */
+    void selectedProcessChanged();
+
+    // Sinais internos para comunicação com Collector
+    /**
+     * @brief Sinal interno para solicitar navegação de diretório
+     */
+    void requestDirectoryNavigation(const QString& path);
+
+    /**
+     * @brief Sinal interno para solicitar atualização de partição
+     */
+    void requestPartitionUpdate(const QString& device);
 
 private slots:
 
@@ -153,11 +243,19 @@ private slots:
      */
     void handleSystemStatsUpdated(const system_stats_t& stats);
 
+    /**
+     * @brief Callback para atualizar os dados do sistema de arquivos no Model
+     * @details Essa callback é chamada quando a thread de coleta termina de coletar dados do filesystem
+     * @param filesystemInfo Dados do sistema de arquivos atualizados
+     */
+    void handleFilesystemUpdated(const filesystem_info_t& filesystemInfo);
+
 private:
     Collector* collector;
     Processor* processor;
-    QMap<int, process_t> currentProcesses;
+    QVector<process_t> currentProcesses;
     system_stats_t currentStats;
+    int m_selectedProcessPid;
 };
 
 #endif

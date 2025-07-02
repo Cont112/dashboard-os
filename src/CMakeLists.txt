@@ -23,6 +23,9 @@ qt_add_resources(dashboard "qml_resources"
        qml/Main.qml
        qml/ProcessTable.qml
        qml/SystemOverview.qml
+       qml/FilesystemBrowser.qml
+       qml/PartitionOverview.qml
+       qml/ProcessDetails.qml
 )
 
 target_link_libraries(dashboard PRIVATE 

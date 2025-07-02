@@ -52,6 +52,13 @@ signals:
      */
     void systemStatsUpdated(const system_stats_t& stats);
 
+    /**
+     * @brief Sinal emitido quando termina de processar os dados do sistema de arquivos
+     * @details Esse sinal é emitido pela thread diretamente ao Model
+     * @param filesystemInfo Struct com os dados do sistema de arquivos processados
+     */
+    void filesystemUpdated(const filesystem_info_t& filesystemInfo);
+
 public slots:
     /**
      * @brief Callback que recebe os dados de processos coletados pela thread Collector
@@ -66,6 +73,13 @@ public slots:
      * @param stats Struct com os dados de sistema coletados
      */
     void onSystemInfoCollected(const system_stats_t& stats);
+
+    /**
+     * @brief Callback que recebe os dados do sistema de arquivos coletados pela thread Collector
+     * @details Adiciona os dados do sistema de arquivos recebidos na struct currentFilesystemInfo
+     * @param filesystemInfo Struct com os dados do sistema de arquivos coletados
+     */
+    void onFilesystemInfoCollected(const filesystem_info_t& filesystemInfo);
 
 private:
 
@@ -87,6 +101,31 @@ private:
      */
     void calculateProcessPercentages();
 
+    // Novos métodos para processamento de dados do sistema de arquivos
+    /**
+     * @brief Função que processa os dados do sistema de arquivos
+     * @details Calcula estatísticas de uso de espaço em disco e processa informações de arquivos
+     */
+    void processFilesystemData();
+
+    /**
+     * @brief Função que calcula estatísticas de uso de partições
+     * @details Calcula percentuais de uso baseado no espaço total e disponível
+     */
+    void calculatePartitionUsage();
+
+    /**
+     * @brief Função que ordena conteúdo de diretórios
+     * @details Organiza arquivos e diretórios em ordem apropriada
+     */
+    void sortDirectoryContents();
+
+    /**
+     * @brief Função que processa estatísticas de E/S dos processos
+     * @details Calcula métricas de desempenho de E/S por processo
+     */
+    void processIOStatistics();
+
     bool running;
     QMutex mutex;
     QWaitCondition wakeCondition;
@@ -94,8 +133,14 @@ private:
     QVector<process_t> processedData;
 
     system_stats_t currentStats;
+    filesystem_info_t currentFilesystemInfo;
     
     QMap<int, long long> previousCpuTime;
+    
+    // Novos membros para processamento de E/S
+    QMap<int, long long> previousReadBytes;
+    QMap<int, long long> previousWriteBytes;
+    bool filesystemUpdatePending;
 
 };
 

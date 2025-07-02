@@ -1,14 +1,21 @@
 #include "Collector.h"
 #include <QDir>
 #include <QFile>
+#include <QFileInfo>
 #include <QTextStream>
 #include <QRegularExpression>
+#include <QStandardPaths>
 #include <unistd.h>
 #include <pwd.h>
+#include <sys/statvfs.h>
+#include <sys/stat.h>
 
 Collector::Collector(QObject *parent) : QThread(parent) {
     mutex.lock();
     running = false;
+    directoryChangeRequested = false;
+    partitionUpdateRequested = false;
+    currentFilesystemInfo.current_directory = "/"; // Inicializar com raiz
     mutex.unlock();
 }
 
@@ -66,6 +73,9 @@ void Collector::run() {
             collectMemoryInfo(proc);
             collectUsername(proc);
             
+            // Nova coleta de informações de E/S
+            collectProcessIOInfo(proc);
+            
             mutex.lock();
             proc_list.push_back(proc);
             mutex.unlock();
@@ -80,6 +90,10 @@ void Collector::run() {
         }
         
         collectSystemInfo();
+        
+        // Coleta informações do sistema de arquivos periodicamente
+        collectFilesystemInfo();
+        
         emit dataCollected(proc_list);
         
         QThread::msleep(UPDATE_INTERVAL); // Espera UPDATE_INTERVAL segundos antes de rodar novamente
@@ -322,4 +336,410 @@ void Collector::collectUsername(process_t& proc) {
     if (proc.username.isEmpty()) {
         proc.username = "unknown";
     }
+}
+
+// Implementação dos novos métodos para sistema de arquivos
+void Collector::requestDirectoryNavigation(const QString& path) {
+    QMutexLocker locker(&mutex);
+    requestedDirectory = path;
+    directoryChangeRequested = true;
+}
+
+void Collector::requestPartitionUpdate(const QString& device) {
+    QMutexLocker locker(&mutex);
+    requestedPartition = device;
+    partitionUpdateRequested = true;
+}
+
+void Collector::collectProcessIOInfo(process_t& proc) {
+    // Inicializar valores de E/S com 0
+    proc.io_details.read_bytes = 0;
+    proc.io_details.write_bytes = 0;
+    proc.io_details.read_syscalls = 0;
+    proc.io_details.write_syscalls = 0;
+    proc.io_details.open_files.clear();
+    proc.io_details.ipc_resources.clear();
+    
+    // Coletar informações de E/S
+    collectOpenFiles(proc);
+    collectIOStats(proc);
+    collectIPCResources(proc);
+}
+
+void Collector::collectOpenFiles(process_t& proc) {
+    QString fdDir = QString(PROC_PATH "/%1/fd").arg(proc.pid);
+    QDir dir(fdDir);
+    
+    if (dir.exists()) {
+        QStringList fdList = dir.entryList(QDir::Files);
+        
+        for (const QString& fdStr : fdList) {
+            bool ok;
+            int fd = fdStr.toInt(&ok);
+            if (!ok) continue;
+            
+            open_file_t openFile;
+            openFile.fd = fd;
+            
+            QString linkPath = QString("%1/%2").arg(fdDir).arg(fdStr);
+            QString target = QFile::symLinkTarget(linkPath);
+            
+            if (!target.isEmpty()) {
+                openFile.path = target;
+                
+                // Determinar tipo de arquivo com mais detalhes
+                if (target.startsWith("/dev/")) {
+                    openFile.type = "dev";
+                } else if (target.startsWith("socket:[")) {
+                    openFile.type = "socket";
+                } else if (target.startsWith("pipe:[")) {
+                    openFile.type = "pipe";
+                } else if (target.startsWith("anon_inode:")) {
+                    openFile.type = "anon";
+                } else if (target == "/dev/null" || target == "/dev/zero") {
+                    openFile.type = "special";
+                } else {
+                    // Arquivo regular
+                    openFile.type = "file";
+                    // Tentar obter tamanho do arquivo
+                    QFileInfo fileInfo(target);
+                    if (fileInfo.exists()) {
+                        openFile.size = fileInfo.size();
+                    }
+                }
+                
+                openFile.permissions = "rw"; // Básico por enquanto
+                
+                proc.io_details.open_files.append(openFile);
+            }
+        }
+    }
+}
+
+void Collector::collectIPCResources(process_t& proc) {
+    // Coletar informações de recursos IPC através de /proc/[pid]/maps
+    QString mapsPath = QString(PROC_PATH "/%1/maps").arg(proc.pid);
+    QFile mapsFile(mapsPath);
+    
+    if (mapsFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        QTextStream in(&mapsFile);
+        
+        while (!in.atEnd()) {
+            QString line = in.readLine();
+            
+            // Procurar por mapeamentos de memória compartilhada e outros recursos IPC
+            if (line.contains("ipc") || line.contains("shm") || line.contains("sem")) {
+                ipc_resource_t resource;
+                
+                QStringList parts = line.split(' ', Qt::SkipEmptyParts);
+                if (parts.size() >= 6) {
+                    resource.type = "shared_memory";
+                    resource.key = parts[0]; // Endereço do mapeamento
+                    resource.permissions = parts[1]; // Permissões
+                    resource.owner_pid = proc.pid;
+                    
+                    proc.io_details.ipc_resources.append(resource);
+                }
+            }
+        }
+        mapsFile.close();
+    }
+    
+    // Verificar recursos IPC do sistema
+    collectSystemIPCResources(proc);
+}
+
+void Collector::collectSystemIPCResources(process_t& proc) {
+    // Verificar semáforos do sistema
+    QFile semFile("/proc/sysvipc/sem");
+    if (semFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        QTextStream in(&semFile);
+        in.readLine(); // Pular cabeçalho
+        
+        while (!in.atEnd()) {
+            QString line = in.readLine();
+            QStringList parts = line.split(QRegularExpression("\\s+"), Qt::SkipEmptyParts);
+            
+            if (parts.size() >= 6) {
+                int ownerPid = parts[4].toInt();
+                if (ownerPid == proc.pid) {
+                    ipc_resource_t resource;
+                    resource.type = "semaphore";
+                    resource.key = parts[0];
+                    resource.permissions = parts[2];
+                    resource.owner_pid = ownerPid;
+                    
+                    proc.io_details.ipc_resources.append(resource);
+                }
+            }
+        }
+        semFile.close();
+    }
+    
+    // Verificar filas de mensagens
+    QFile msgFile("/proc/sysvipc/msg");
+    if (msgFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        QTextStream in(&msgFile);
+        in.readLine(); // Pular cabeçalho
+        
+        while (!in.atEnd()) {
+            QString line = in.readLine();
+            QStringList parts = line.split(QRegularExpression("\\s+"), Qt::SkipEmptyParts);
+            
+            if (parts.size() >= 6) {
+                int ownerPid = parts[4].toInt();
+                if (ownerPid == proc.pid) {
+                    ipc_resource_t resource;
+                    resource.type = "message_queue";
+                    resource.key = parts[0];
+                    resource.permissions = parts[2];
+                    resource.owner_pid = ownerPid;
+                    
+                    proc.io_details.ipc_resources.append(resource);
+                }
+            }
+        }
+        msgFile.close();
+    }
+}
+
+void Collector::collectIOStats(process_t& proc) {
+    QString ioPath = QString(PROC_PATH "/%1/io").arg(proc.pid);
+    QFile ioFile(ioPath);
+    
+    if (ioFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        QTextStream in(&ioFile);
+        QString content = in.readAll();
+        QStringList lines = content.split('\n', Qt::SkipEmptyParts);
+        
+        for (const QString& line : lines) {
+            QStringList parts = line.split(QChar::Space, Qt::SkipEmptyParts);
+            if (parts.size() >= 2) {
+                QString key = parts[0].chopped(1); // Remove ':'
+                long long value = parts[1].toLongLong();
+                
+                if (key == "read_bytes") {
+                    proc.io_details.read_bytes = value;
+                } else if (key == "write_bytes") {
+                    proc.io_details.write_bytes = value;
+                } else if (key == "syscr") {
+                    proc.io_details.read_syscalls = value;
+                } else if (key == "syscw") {
+                    proc.io_details.write_syscalls = value;
+                }
+            }
+        }
+        ioFile.close();
+    } else {
+        // Se não conseguir ler o arquivo /proc/[pid]/io (comum para processos do kernel),
+        // tentar obter informações básicas de outra forma
+        
+        // Para processos do kernel, podemos tentar informações do /proc/[pid]/stat
+        QString statPath = QString(PROC_PATH "/%1/stat").arg(proc.pid);
+        QFile statFile(statPath);
+        if (statFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
+            QTextStream in(&statFile);
+            QString content = in.readAll();
+            QStringList tokens = content.split(QChar::Space);
+            
+            // Estimativa grosseira baseada em dados do stat (não são exatos para E/S)
+            if (tokens.size() > 40) {
+                // Usar alguns campos como aproximação para atividade
+                proc.io_details.read_syscalls = tokens[13].toLongLong(); // Minor faults
+                proc.io_details.write_syscalls = tokens[14].toLongLong(); // Major faults
+                proc.io_details.read_bytes = proc.io_details.read_syscalls * 4096; // Aproximação
+                proc.io_details.write_bytes = proc.io_details.write_syscalls * 4096; // Aproximação
+            }
+            statFile.close();
+        }
+        
+        // Para processos do kernel, definir valores padrões mais informativos
+        if (proc.name.startsWith("[") && proc.name.endsWith("]")) {
+            // É um processo do kernel, pode não ter E/S de arquivo tradicional
+            proc.io_details.read_bytes = 0;
+            proc.io_details.write_bytes = 0;
+            proc.io_details.read_syscalls = 0;
+            proc.io_details.write_syscalls = 0;
+        }
+    }
+}
+
+void Collector::collectFilesystemInfo() {
+    filesystem_info_t info = currentFilesystemInfo; // Usar estado atual
+    
+    // Verifica se há uma mudança de diretório solicitada
+    {
+        QMutexLocker locker(&mutex);
+        if (directoryChangeRequested) {
+            info.current_directory = requestedDirectory;
+            currentFilesystemInfo.current_directory = requestedDirectory;
+            directoryChangeRequested = false;
+        }
+    }
+    
+    // Coleta informações de partições
+    collectPartitionInfo(info);
+    
+    // Coleta conteúdo do diretório atual
+    collectDirectoryContents(info.current_directory, info);
+    
+    // Atualiza o estado atual
+    currentFilesystemInfo = info;
+    
+    emit filesystemInfoCollected(info);
+}
+
+void Collector::collectPartitionInfo(filesystem_info_t& filesystemInfo) {
+    filesystemInfo.partitions.clear();
+    
+    QFile mountsFile("/proc/mounts");
+    if (mountsFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        QTextStream in(&mountsFile);
+        
+        while (!in.atEnd()) {
+            QString line = in.readLine();
+            QStringList parts = line.split(' ', Qt::SkipEmptyParts);
+            
+            if (parts.size() >= 4) {
+                QString device = parts[0];
+                QString mountpoint = parts[1];
+                QString filesystem = parts[2];
+                QString options = parts[3];
+                
+                // Filtrar apenas sistemas de arquivos relevantes
+                if (filesystem == "ext2" || filesystem == "ext3" || filesystem == "ext4" ||
+                    filesystem == "xfs" || filesystem == "btrfs" || filesystem == "ntfs" ||
+                    filesystem == "vfat" || filesystem == "tmpfs" || filesystem == "rootfs") {
+                    
+                    partition_info_t partition;
+                    partition.device = device;
+                    partition.mountpoint = mountpoint;
+                    partition.filesystem = filesystem;
+                    partition.options = options;
+                    
+                    // Usar statvfs para obter informações de espaço
+                    struct statvfs stats;
+                    if (statvfs(mountpoint.toLocal8Bit().constData(), &stats) == 0) {
+                        partition.total_space = stats.f_blocks * stats.f_frsize;
+                        partition.available_space = stats.f_bavail * stats.f_frsize;
+                        partition.used_space = partition.total_space - (stats.f_bfree * stats.f_frsize);
+                        
+                        if (partition.total_space > 0) {
+                            partition.usage_percentage = 
+                                (static_cast<double>(partition.used_space) / partition.total_space) * 100.0;
+                        } else {
+                            partition.usage_percentage = 0.0;
+                        }
+                    } else {
+                        partition.total_space = 0;
+                        partition.used_space = 0;
+                        partition.available_space = 0;
+                        partition.usage_percentage = 0.0;
+                    }
+                    
+                    filesystemInfo.partitions.append(partition);
+                }
+            }
+        }
+        mountsFile.close();
+    }
+}
+
+void Collector::collectSinglePartitionInfo(const QString& device, partition_info_t& partition) {
+    Q_UNUSED(device);
+    Q_UNUSED(partition);
+    // Implementação básica - pode ser expandida depois
+}
+
+void Collector::collectDirectoryContents(const QString& path, filesystem_info_t& filesystemInfo) {
+    filesystemInfo.directory_contents.clear();
+    filesystemInfo.current_directory = path;
+    
+    QDir dir(path);
+    if (!dir.exists()) {
+        return;
+    }
+    
+    // Obter lista de entradas no diretório
+    QStringList entries = dir.entryList(QDir::AllEntries | QDir::Hidden, QDir::Name);
+    
+    for (const QString& entry : entries) {
+        // Pular . (diretório atual)
+        if (entry == ".") continue;
+        
+        QString fullPath = dir.absoluteFilePath(entry);
+        file_info_t fileInfo;
+        
+        collectFileInfo(fullPath, fileInfo);
+        
+        if (!fileInfo.name.isEmpty()) {
+            filesystemInfo.directory_contents.append(fileInfo);
+        }
+    }
+}
+
+void Collector::collectFileInfo(const QString& path, file_info_t& fileInfo) {
+    QFileInfo info(path);
+    
+    if (!info.exists()) {
+        return;
+    }
+    
+    fileInfo.name = info.fileName();
+    fileInfo.path = path;
+    fileInfo.size = info.size();
+    fileInfo.is_directory = info.isDir();
+    fileInfo.is_hidden = info.isHidden();
+    fileInfo.modified_time = info.lastModified();
+    fileInfo.owner = info.owner();
+    fileInfo.group = info.group();
+    
+    // Determinar tipo de arquivo
+    if (info.isDir()) {
+        fileInfo.type = "directory";
+    } else if (info.isSymLink()) {
+        fileInfo.type = "symlink";
+    } else if (info.isExecutable()) {
+        fileInfo.type = "executable";
+    } else {
+        fileInfo.type = "file";
+    }
+    
+    // Obter permissões usando stat()
+    struct stat statBuf;
+    if (stat(path.toLocal8Bit().constData(), &statBuf) == 0) {
+        fileInfo.permissions = convertPermissions(statBuf.st_mode);
+    } else {
+        fileInfo.permissions = "?????????";
+    }
+}
+
+QString Collector::convertPermissions(mode_t mode) {
+    QString permissions;
+    
+    // Tipo de arquivo
+    if (S_ISDIR(mode)) permissions += "d";
+    else if (S_ISLNK(mode)) permissions += "l";
+    else if (S_ISCHR(mode)) permissions += "c";
+    else if (S_ISBLK(mode)) permissions += "b";
+    else if (S_ISFIFO(mode)) permissions += "p";
+    else if (S_ISSOCK(mode)) permissions += "s";
+    else permissions += "-";
+    
+    // Permissões do proprietário
+    permissions += (mode & S_IRUSR) ? "r" : "-";
+    permissions += (mode & S_IWUSR) ? "w" : "-";
+    permissions += (mode & S_IXUSR) ? "x" : "-";
+    
+    // Permissões do grupo
+    permissions += (mode & S_IRGRP) ? "r" : "-";
+    permissions += (mode & S_IWGRP) ? "w" : "-";
+    permissions += (mode & S_IXGRP) ? "x" : "-";
+    
+    // Permissões de outros
+    permissions += (mode & S_IROTH) ? "r" : "-";
+    permissions += (mode & S_IWOTH) ? "w" : "-";
+    permissions += (mode & S_IXOTH) ? "x" : "-";
+    
+    return permissions;
 }

@@ -48,6 +48,84 @@ typedef struct {
 } memory_info_t;
 
 /**
+ * @brief Struct que guarda informações de um arquivo aberto por um processo
+ * @details Os dados dessa struct são coletados de /proc/[pid]/fd/
+ */
+typedef struct {
+    int fd;                        ///< File descriptor number
+    QString path;                  ///< Caminho do arquivo/dispositivo
+    QString type;                  ///< Tipo (arquivo, socket, pipe, etc.)
+    QString permissions;           ///< Permissões de acesso
+    long long size;               ///< Tamanho do arquivo (se aplicável)
+} open_file_t;
+
+/**
+ * @brief Struct que guarda informações de um semáforo/mutex usado por um processo
+ * @details Os dados dessa struct são coletados de /proc/[pid]/maps e /proc/sysvipc/
+ */
+typedef struct {
+    QString type;                  ///< Tipo (semáforo, mutex, shared memory, etc.)
+    QString key;                   ///< Chave do recurso IPC
+    QString permissions;           ///< Permissões do recurso
+    int owner_pid;                ///< PID do processo proprietário
+} ipc_resource_t;
+
+/**
+ * @brief Struct que guarda informações detalhadas de E/S de um processo
+ * @details Coleta informações de arquivos abertos, sockets, pipes, etc.
+ */
+typedef struct {
+    QList<open_file_t> open_files;     ///< Lista de arquivos abertos
+    QList<ipc_resource_t> ipc_resources; ///< Lista de recursos IPC
+    long long read_bytes;              ///< Bytes lidos pelo processo
+    long long write_bytes;             ///< Bytes escritos pelo processo
+    long long read_syscalls;           ///< Número de syscalls de leitura
+    long long write_syscalls;          ///< Número de syscalls de escrita
+} process_io_t;
+
+/**
+ * @brief Struct que guarda informações de uma partição/filesystem
+ * @details Os dados dessa struct são coletados de /proc/mounts e /proc/partitions
+ */
+typedef struct {
+    QString device;                ///< Dispositivo (ex: /dev/sda1)
+    QString mountpoint;            ///< Ponto de montagem (ex: /)
+    QString filesystem;            ///< Tipo de filesystem (ex: ext4)
+    QString options;               ///< Opções de montagem
+    long long total_space;         ///< Espaço total em bytes
+    long long used_space;          ///< Espaço usado em bytes
+    long long available_space;     ///< Espaço disponível em bytes
+    double usage_percentage;       ///< Percentual de uso
+} partition_info_t;
+
+/**
+ * @brief Struct que guarda informações de um arquivo/diretório
+ * @details Usada para navegação no sistema de arquivos
+ */
+typedef struct {
+    QString name;                  ///< Nome do arquivo/diretório
+    QString path;                  ///< Caminho completo
+    QString type;                  ///< Tipo (arquivo, diretório, link, etc.)
+    QString permissions;           ///< Permissões no formato rwxrwxrwx
+    QString owner;                 ///< Proprietário
+    QString group;                 ///< Grupo
+    long long size;               ///< Tamanho em bytes
+    QDateTime modified_time;       ///< Data de modificação
+    bool is_directory;            ///< Se é diretório
+    bool is_hidden;               ///< Se é arquivo oculto
+} file_info_t;
+
+/**
+ * @brief Struct que guarda informações do sistema de arquivos
+ * @details Agrupa informações de partições e sistema de arquivos
+ */
+typedef struct {
+    QList<partition_info_t> partitions;  ///< Lista de partições
+    QString current_directory;           ///< Diretório atual sendo navegado
+    QList<file_info_t> directory_contents; ///< Conteúdo do diretório atual
+} filesystem_info_t;
+
+/**
  * @brief Struct que guarda informações relevantes de um processo
  * @details A maioria dos dados dessa struct são coletados de /proc/[pid]/stat e /proc/[pid]/status
  */
@@ -66,6 +144,7 @@ typedef struct {
     bool processed;                     ///< Flag indicando se o processo foi processado
     QList<thread_info_t> threads;       ///< Lista de threads do processo
     memory_info_t memory_details;       ///< Detalhes de uso de memória do processo
+    process_io_t io_details;            ///< Detalhes de E/S do processo (NOVO)
 } process_t;
 
 /**
@@ -85,6 +164,7 @@ typedef struct {
     double system_memory_usage;          ///< Percentual de uso de memória do sistema
     long long total_physical_memory;     ///< Quantidade total de memória física em bytes
     long long available_physical_memory; ///< Quantidade de memória física disponível em bytes
+    filesystem_info_t filesystem_info;   ///< Informações do sistema de arquivos (NOVO)
 } system_stats_t;
 
 #endif
