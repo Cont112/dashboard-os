@@ -1,5 +1,5 @@
 #include "Processor.h"
-#include <unistd.h>  // For sysconf
+#include <unistd.h>
 
 Processor::Processor(QObject *parent) : QThread(parent) {
     mutex.lock();
