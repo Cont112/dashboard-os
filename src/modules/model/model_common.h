@@ -19,7 +19,7 @@
 #include <QTimer>
 
 #define PROC_PATH "/proc"
-#define UPDATE_INTERVAL 3000 // 3 segundos
+#define UPDATE_INTERVAL 1000 // 1 segundo
 
 /**
  * @brief Struct que guarda informações de uma thread de um processo
@@ -55,20 +55,8 @@ typedef struct {
     int fd;                        ///< File descriptor number
     QString path;                  ///< Caminho do arquivo/dispositivo
     QString type;                  ///< Tipo (arquivo, socket, pipe, etc.)
-    QString permissions;           ///< Permissões de acesso
     long long size;               ///< Tamanho do arquivo (se aplicável)
 } open_file_t;
-
-/**
- * @brief Struct que guarda informações de um semáforo/mutex usado por um processo
- * @details Os dados dessa struct são coletados de /proc/[pid]/maps e /proc/sysvipc/
- */
-typedef struct {
-    QString type;                  ///< Tipo (semáforo, mutex, shared memory, etc.)
-    QString key;                   ///< Chave do recurso IPC
-    QString permissions;           ///< Permissões do recurso
-    int owner_pid;                ///< PID do processo proprietário
-} ipc_resource_t;
 
 /**
  * @brief Struct que guarda informações detalhadas de E/S de um processo
@@ -76,11 +64,8 @@ typedef struct {
  */
 typedef struct {
     QList<open_file_t> open_files;     ///< Lista de arquivos abertos
-    QList<ipc_resource_t> ipc_resources; ///< Lista de recursos IPC
     long long read_bytes;              ///< Bytes lidos pelo processo
     long long write_bytes;             ///< Bytes escritos pelo processo
-    long long read_syscalls;           ///< Número de syscalls de leitura
-    long long write_syscalls;          ///< Número de syscalls de escrita
 } process_io_t;
 
 /**
@@ -91,7 +76,6 @@ typedef struct {
     QString device;                ///< Dispositivo (ex: /dev/sda1)
     QString mountpoint;            ///< Ponto de montagem (ex: /)
     QString filesystem;            ///< Tipo de filesystem (ex: ext4)
-    QString options;               ///< Opções de montagem
     long long total_space;         ///< Espaço total em bytes
     long long used_space;          ///< Espaço usado em bytes
     long long available_space;     ///< Espaço disponível em bytes
@@ -106,9 +90,7 @@ typedef struct {
     QString name;                  ///< Nome do arquivo/diretório
     QString path;                  ///< Caminho completo
     QString type;                  ///< Tipo (arquivo, diretório, link, etc.)
-    QString permissions;           ///< Permissões no formato rwxrwxrwx
     QString owner;                 ///< Proprietário
-    QString group;                 ///< Grupo
     long long size;               ///< Tamanho em bytes
     QDateTime modified_time;       ///< Data de modificação
     bool is_directory;            ///< Se é diretório

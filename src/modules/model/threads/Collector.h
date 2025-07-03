@@ -67,12 +67,6 @@ public slots:
      */
     void requestDirectoryNavigation(const QString& path);
 
-    /**
-     * @brief Solicita atualização de informações de partição
-     * @param device Dispositivo da partição
-     */
-    void requestPartitionUpdate(const QString& device);
-
 private:
     /**
      * @brief Função que lê os subdiretórios do /proc
@@ -138,18 +132,6 @@ private:
     void collectOpenFiles(process_t& proc);
 
     /**
-     * @brief Função que coleta os recursos IPC usados por um processo
-     * @param proc Objeto do tipo process_t que será preenchido com os recursos IPC
-     */
-    void collectIPCResources(process_t& proc);
-
-    /**
-     * @brief Função que coleta recursos IPC do sistema relacionados a um processo
-     * @param proc Objeto do tipo process_t que será preenchido com os recursos IPC do sistema
-     */
-    void collectSystemIPCResources(process_t& proc);
-
-    /**
      * @brief Função que coleta estatísticas de E/S de um processo
      * @param proc Objeto do tipo process_t que será preenchido com as estatísticas de E/S
      */
@@ -172,7 +154,7 @@ private:
      */
     void collectSystemMemoryInfo(system_stats_t& stats);
 
-    // Novos métodos para sistema de arquivos
+
     /**
      * @brief Função que coleta informações do sistema de arquivos
      */
@@ -183,13 +165,6 @@ private:
      * @param filesystemInfo Objeto que será preenchido com informações das partições
      */
     void collectPartitionInfo(filesystem_info_t& filesystemInfo);
-
-    /**
-     * @brief Função que coleta informações específicas de uma partição
-     * @param device Dispositivo da partição
-     * @param partition Objeto partition_info_t que será preenchido
-     */
-    void collectSinglePartitionInfo(const QString& device, partition_info_t& partition);
 
     /**
      * @brief Função que coleta o conteúdo de um diretório
@@ -206,13 +181,6 @@ private:
     void collectFileInfo(const QString& path, file_info_t& fileInfo);
 
     /**
-     * @brief Função que converte permissões numéricas para string
-     * @param mode Modo de permissão numérico
-     * @return String com as permissões no formato rwxrwxrwx
-     */
-    QString convertPermissions(mode_t mode);
-
-    /**
      * @brief Helper que verifica se o diretório é um diretório válido de processo
      * @param name Nome do diretório
      * @return true se o diretório é um diretório válido de processo, false caso contrário
@@ -227,12 +195,9 @@ private:
     long long prev_used_cpu = 0;
     bool is_first_cpu_iteration = true;
     
-    // Novos membros para sistema de arquivos
     filesystem_info_t currentFilesystemInfo;
     QString requestedDirectory;
-    QString requestedPartition;
     bool directoryChangeRequested;
-    bool partitionUpdateRequested;
 };
 
 #endif

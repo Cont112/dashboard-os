@@ -25,7 +25,6 @@ Model::Model(QObject *parent) : QAbstractTableModel(parent), m_selectedProcessPi
                     this, &Model::handleSystemStatsUpdated,
                     Qt::QueuedConnection);
 
-    // Novas conexões para sistema de arquivos
     QObject::connect(collector, &Collector::filesystemInfoCollected,
                     processor, &Processor::onFilesystemInfoCollected,
                     Qt::QueuedConnection);
@@ -33,15 +32,11 @@ Model::Model(QObject *parent) : QAbstractTableModel(parent), m_selectedProcessPi
     QObject::connect(processor, &Processor::filesystemUpdated,
                     this, &Model::handleFilesystemUpdated,
                     Qt::QueuedConnection);
-
-    // Conectar navegação de diretórios
+                    
     QObject::connect(this, &Model::requestDirectoryNavigation,
                     collector, &Collector::requestDirectoryNavigation,
                     Qt::QueuedConnection);
     
-    QObject::connect(this, &Model::requestPartitionUpdate,
-                    collector, &Collector::requestPartitionUpdate,
-                    Qt::QueuedConnection);
 }
 
 Model::~Model() {
@@ -77,13 +72,9 @@ QHash<int, QByteArray> Model::roleNames() const {
     roles[StateRole] = "state";
     roles[UsernameRole] = "username";
     roles[ThreadsRole] = "threads";
-    // Novos roles para E/S
     roles[OpenFilesCountRole] = "open_files_count";
-    roles[IpcResourcesCountRole] = "ipc_resources_count";
     roles[ReadBytesRole] = "read_bytes";
     roles[WriteBytesRole] = "write_bytes";
-    roles[ReadSyscallsRole] = "read_syscalls";
-    roles[WriteSyscallsRole] = "write_syscalls";
     return roles;
 }
 
@@ -108,19 +99,12 @@ QVariant Model::data(const QModelIndex &index, int role) const {
             return process.username;
         case ThreadsRole:
             return process.threads.size();
-        // Novos roles para E/S
         case OpenFilesCountRole:
             return process.io_details.open_files.size();
-        case IpcResourcesCountRole:
-            return process.io_details.ipc_resources.size();
         case ReadBytesRole:
             return QVariant::fromValue(process.io_details.read_bytes);
         case WriteBytesRole:
             return QVariant::fromValue(process.io_details.write_bytes);
-        case ReadSyscallsRole:
-            return QVariant::fromValue(process.io_details.read_syscalls);
-        case WriteSyscallsRole:
-            return QVariant::fromValue(process.io_details.write_syscalls);
         default:
             return QVariant();
     }
@@ -134,7 +118,6 @@ QVariantList Model::partitions() const {
         partitionMap["device"] = partition.device;
         partitionMap["mountpoint"] = partition.mountpoint;
         partitionMap["filesystem"] = partition.filesystem;
-        partitionMap["options"] = partition.options;
         partitionMap["total_space"] = QVariant::fromValue(partition.total_space);
         partitionMap["used_space"] = QVariant::fromValue(partition.used_space);
         partitionMap["available_space"] = QVariant::fromValue(partition.available_space);
@@ -151,9 +134,7 @@ QVariantList Model::directoryContents() const {
         fileMap["name"] = file.name;
         fileMap["path"] = file.path;
         fileMap["type"] = file.type;
-        fileMap["permissions"] = file.permissions;
         fileMap["owner"] = file.owner;
-        fileMap["group"] = file.group;
         fileMap["size"] = QVariant::fromValue(file.size);
         fileMap["modified_time"] = file.modified_time;
         fileMap["is_directory"] = file.is_directory;
@@ -173,7 +154,6 @@ void Model::setSelectedProcessPid(int pid) {
 QVariantMap Model::getProcessIODetails(int pid) const {
     QVariantMap details;
     
-    // Encontra o processo pelo PID
     auto it = std::find_if(currentProcesses.begin(), currentProcesses.end(),
                           [pid](const process_t& proc) { return proc.pid == pid; });
     
@@ -186,33 +166,17 @@ QVariantMap Model::getProcessIODetails(int pid) const {
         details["thread_count"] = process.threads.size();
         details["read_bytes"] = QVariant::fromValue(process.io_details.read_bytes);
         details["write_bytes"] = QVariant::fromValue(process.io_details.write_bytes);
-        details["read_syscalls"] = QVariant::fromValue(process.io_details.read_syscalls);
-        details["write_syscalls"] = QVariant::fromValue(process.io_details.write_syscalls);
         
-        // Arquivos abertos
         QVariantList openFilesList;
         for (const auto& file : process.io_details.open_files) {
             QVariantMap fileMap;
             fileMap["fd"] = file.fd;
             fileMap["path"] = file.path;
             fileMap["type"] = file.type;
-            fileMap["permissions"] = file.permissions;
             fileMap["size"] = QVariant::fromValue(file.size);
             openFilesList.append(fileMap);
         }
         details["open_files"] = openFilesList;
-        
-        // Recursos IPC
-        QVariantList ipcResourcesList;
-        for (const auto& resource : process.io_details.ipc_resources) {
-            QVariantMap resourceMap;
-            resourceMap["type"] = resource.type;
-            resourceMap["key"] = resource.key;
-            resourceMap["permissions"] = resource.permissions;
-            resourceMap["owner_pid"] = resource.owner_pid;
-            ipcResourcesList.append(resourceMap);
-        }
-        details["ipc_resources"] = ipcResourcesList;
     }
     
     return details;
@@ -239,10 +203,6 @@ void Model::navigateToHome() {
 
 void Model::navigateToRoot() {
     emit requestDirectoryNavigation("/");
-}
-
-void Model::refreshPartitionInfo(const QString& device) {
-    emit requestPartitionUpdate(device);
 }
 
 void Model::handleProcessedData(const QVector<process_t>& processedData) {

@@ -16,7 +16,6 @@ Rectangle {
         anchors.margins: 10
         spacing: 10
 
-        // Cabeçalho com navegação
         Rectangle {
             Layout.fillWidth: true
             height: 40
@@ -28,10 +27,8 @@ Rectangle {
                 anchors.margins: 5
                 spacing: 10
 
-                // Botões de navegação
                 Button {
-                    text: "🏠"
-                    ToolTip.text: "Ir para Home"
+                    text: "Home"
                     onClicked: processModel.navigateToHome()
                     background: Rectangle {
                         color: parent.hovered ? "#505050" : "#404040"
@@ -40,8 +37,7 @@ Rectangle {
                 }
 
                 Button {
-                    text: "/"
-                    ToolTip.text: "Ir para Raiz"
+                    text: "Root"
                     onClicked: processModel.navigateToRoot()
                     background: Rectangle {
                         color: parent.hovered ? "#505050" : "#404040"
@@ -51,7 +47,6 @@ Rectangle {
 
                 Button {
                     text: "↑"
-                    ToolTip.text: "Diretório Pai"
                     onClicked: processModel.navigateToParent()
                     background: Rectangle {
                         color: parent.hovered ? "#505050" : "#404040"
@@ -65,7 +60,6 @@ Rectangle {
                     color: "#505050"
                 }
 
-                // Caminho atual
                 Text {
                     id: pathLabel
                     text: processModel.currentDirectory
@@ -78,7 +72,6 @@ Rectangle {
             }
         }
 
-        // Lista de arquivos e diretórios
         Rectangle {
             Layout.fillWidth: true
             Layout.fillHeight: true
@@ -114,19 +107,16 @@ Rectangle {
                         anchors.margins: 5
                         spacing: 10
 
-                        // Ícone do tipo de arquivo
                         Text {
                             text: {
                                 if (modelData.is_directory) return "📁"
                                 else if (modelData.name.endsWith(".txt")) return "📄"
-                                else if (modelData.name.endsWith(".exe") || 
-                                        modelData.permissions.includes("x")) return "⚙️"
+                                else if (modelData.name.endsWith(".exe")) return "⚙️"
                                 else return "📄"
                             }
                             font.pixelSize: 16
                         }
 
-                        // Nome do arquivo
                         Text {
                             text: modelData.name
                             color: modelData.is_directory ? "#87CEEB" : "#ffffff"
@@ -136,16 +126,13 @@ Rectangle {
                             elide: Text.ElideRight
                         }
 
-                        // Permissões
                         Text {
-                            text: modelData.permissions
+                            text: modelData.owner
                             color: "#999999"
                             font.family: "Courier"
                             font.pixelSize: 10
-                            Layout.preferredWidth: 80
                         }
 
-                        // Tamanho
                         Text {
                             text: modelData.is_directory ? "" : formatFileSize(modelData.size)
                             color: "#999999"
@@ -155,7 +142,6 @@ Rectangle {
                             horizontalAlignment: Text.AlignRight
                         }
 
-                        // Data de modificação
                         Text {
                             text: Qt.formatDateTime(modelData.modified_time, "dd/MM/yy hh:mm")
                             color: "#999999"

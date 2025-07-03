@@ -181,26 +181,21 @@ void Processor::calculateProcessPercentages() {
     }
 }
 
-// Implementação dos novos métodos para sistema de arquivos
 void Processor::onFilesystemInfoCollected(const filesystem_info_t& filesystemInfo) {
     QMutexLocker locker(&mutex);
     currentFilesystemInfo = filesystemInfo;
     
-    // Processar dados do sistema de arquivos se necessário
     processFilesystemData();
     
     emit filesystemUpdated(currentFilesystemInfo);
 }
 
 void Processor::processFilesystemData() {
-    // Implementação básica - pode ser expandida depois
-    // Por enquanto, apenas calcula estatísticas básicas de partições
     calculatePartitionUsage();
     sortDirectoryContents();
 }
 
 void Processor::calculatePartitionUsage() {
-    // Calcula percentuais de uso das partições
     for (auto& partition : currentFilesystemInfo.partitions) {
         if (partition.total_space > 0) {
             partition.usage_percentage = 
@@ -212,7 +207,6 @@ void Processor::calculatePartitionUsage() {
 }
 
 void Processor::sortDirectoryContents() {
-    // Ordena o conteúdo do diretório - diretórios primeiro, depois arquivos
     std::sort(currentFilesystemInfo.directory_contents.begin(),
               currentFilesystemInfo.directory_contents.end(),
               [](const file_info_t& a, const file_info_t& b) {
@@ -221,9 +215,4 @@ void Processor::sortDirectoryContents() {
                   }
                   return a.name.toLower() < b.name.toLower(); // Ordem alfabética
               });
-}
-
-void Processor::processIOStatistics() {
-    // Implementação básica para estatísticas de E/S
-    // Por enquanto não faz nada, mas pode ser expandida depois
 }

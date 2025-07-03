@@ -5,14 +5,13 @@ import QtQuick.Layouts 6.9
 ApplicationWindow {
     id: window
     visible: true
-    title: "Dashboard OS - Sistema de Monitoramento"
+    title: "System Monitor"
     color: "#2b2b2b"
     width: 1200
     height: 800
     
     property int currentTab: 0
     
-    // Janela de detalhes do processo (se necessário)
     property var processDetailsWindow: null
     
     Button {
@@ -45,13 +44,10 @@ ApplicationWindow {
         anchors.fill: parent
         anchors.margins: 10
 
-        // Overview do sistema (sempre visível)
         SystemOverview {
             Layout.fillWidth: true
             Layout.maximumHeight: 200
         }
-
-        // Barra de abas
         Rectangle {
             Layout.fillWidth: true
             height: 50
@@ -72,7 +68,7 @@ ApplicationWindow {
                 }
 
                 TabButton {
-                    text: "⚙️ Processos"
+                    text: "Processes"
                     background: Rectangle {
                         color: parent.checked ? "#505050" : (parent.hovered ? "#454545" : "transparent")
                         radius: 5
@@ -87,7 +83,7 @@ ApplicationWindow {
                 }
 
                 TabButton {
-                    text: "📁 Sistema de Arquivos"
+                    text: "Memory"
                     background: Rectangle {
                         color: parent.checked ? "#505050" : (parent.hovered ? "#454545" : "transparent")
                         radius: 5
@@ -102,7 +98,37 @@ ApplicationWindow {
                 }
 
                 TabButton {
-                    text: "💾 Partições"
+                    text: "CPU"
+                    background: Rectangle {
+                        color: parent.checked ? "#505050" : (parent.hovered ? "#454545" : "transparent")
+                        radius: 5
+                    }
+                    contentItem: Text {
+                        text: parent.text
+                        color: parent.checked ? "#87CEEB" : "#ffffff"
+                        font.pixelSize: 12
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                    }
+                }
+
+                TabButton {
+                    text: "Filesystem"
+                    background: Rectangle {
+                        color: parent.checked ? "#505050" : (parent.hovered ? "#454545" : "transparent")
+                        radius: 5
+                    }
+                    contentItem: Text {
+                        text: parent.text
+                        color: parent.checked ? "#87CEEB" : "#ffffff"
+                        font.pixelSize: 12
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                    }
+                }
+
+                TabButton {
+                    text: "Partitions"
                     background: Rectangle {
                         color: parent.checked ? "#505050" : (parent.hovered ? "#454545" : "transparent")
                         radius: 5
@@ -118,20 +144,17 @@ ApplicationWindow {
             }
         }
 
-        // Conteúdo das abas
         StackLayout {
             Layout.fillWidth: true
             Layout.fillHeight: true
             currentIndex: window.currentTab
 
-            // Aba 0: Processos (com funcionalidade para abrir detalhes)
             Rectangle {
                 color: "transparent"
 
                 ProcessTable {
                     anchors.fill: parent
                     
-                    // Conexão para abrir detalhes do processo
                     onProcessDoubleClicked: function(pid) {
                         processModel.selectedProcessPid = pid
                         openProcessDetails()
@@ -139,13 +162,21 @@ ApplicationWindow {
                 }
             }
 
-            // Aba 1: Sistema de Arquivos
+            MemoryUsageGraph {
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+            }
+
+            CpuUsageChart {
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+            }
+
             FilesystemBrowser {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
             }
 
-            // Aba 2: Partições
             PartitionOverview {
                 Layout.fillWidth: true
                 Layout.fillHeight: true

@@ -51,13 +51,9 @@ public:
         StateRole,
         UsernameRole,
         ThreadsRole,
-        // Novos roles para informações de E/S
         OpenFilesCountRole,
-        IpcResourcesCountRole,
         ReadBytesRole,
-        WriteBytesRole,
-        ReadSyscallsRole,
-        WriteSyscallsRole
+        WriteBytesRole
     };
 
     Model(QObject *parent = nullptr);
@@ -194,11 +190,6 @@ public:
      */
     Q_INVOKABLE void navigateToRoot();
 
-    /**
-     * @brief Atualiza informações de uma partição específica
-     */
-    Q_INVOKABLE void refreshPartitionInfo(const QString& device);
-
 signals:
     /**
      * @brief Sinal emitido quando os dados de sistema são atualizados
@@ -221,11 +212,6 @@ signals:
      * @brief Sinal interno para solicitar navegação de diretório
      */
     void requestDirectoryNavigation(const QString& path);
-
-    /**
-     * @brief Sinal interno para solicitar atualização de partição
-     */
-    void requestPartitionUpdate(const QString& device);
 
 private slots:
 

@@ -120,12 +120,6 @@ private:
      */
     void sortDirectoryContents();
 
-    /**
-     * @brief Função que processa estatísticas de E/S dos processos
-     * @details Calcula métricas de desempenho de E/S por processo
-     */
-    void processIOStatistics();
-
     bool running;
     QMutex mutex;
     QWaitCondition wakeCondition;
@@ -136,12 +130,6 @@ private:
     filesystem_info_t currentFilesystemInfo;
     
     QMap<int, long long> previousCpuTime;
-    
-    // Novos membros para processamento de E/S
-    QMap<int, long long> previousReadBytes;
-    QMap<int, long long> previousWriteBytes;
-    bool filesystemUpdatePending;
-
 };
 
 #endif 

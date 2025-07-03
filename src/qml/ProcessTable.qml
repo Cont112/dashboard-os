@@ -30,8 +30,8 @@ Item {
                 id: header
                 width: processTable.width
                 height: 40
-                color: "#e0e0e0"
-                border.color: "#e0e0e0"
+                color: "#3c3c3c"
+                border.color: "#505050"
                 
                 RowLayout {
                     anchors.fill: parent
@@ -46,7 +46,7 @@ Item {
                             anchors.centerIn: parent
                             text: "PID"
                             font.bold: true
-                            color: "#333333"
+                            color: "#ffffff"
                         }
                     }
                     Rectangle {
@@ -57,7 +57,7 @@ Item {
                             anchors.centerIn: parent
                             text: "Process Name"
                             font.bold: true
-                            color: "#333333"
+                            color: "#ffffff"
                         }
                     }
                     Rectangle {
@@ -68,7 +68,7 @@ Item {
                             anchors.centerIn: parent
                             text: "State"
                             font.bold: true
-                            color: "#333333"
+                            color: "#ffffff"
                         }
                     }
                     Rectangle {
@@ -79,7 +79,7 @@ Item {
                             anchors.centerIn: parent
                             text: "CPU (%)"
                             font.bold: true
-                            color: "#333333"
+                            color: "#ffffff"
                         }
                     }
                     Rectangle {
@@ -90,7 +90,7 @@ Item {
                             anchors.centerIn: parent
                             text: "Memory (%)"
                             font.bold: true
-                            color: "#333333"
+                            color: "#ffffff"
                         }
                     }
                     Rectangle {
@@ -101,7 +101,7 @@ Item {
                             anchors.centerIn: parent
                             text: "User"
                             font.bold: true
-                            color: "#333333"
+                            color: "#ffffff"
                         }
                     }
                     Rectangle {
@@ -112,7 +112,7 @@ Item {
                             anchors.centerIn: parent
                             text: "Threads"
                             font.bold: true
-                            color: "#333333"
+                            color: "#ffffff"
                         }
                     }
                 }
@@ -146,8 +146,18 @@ Item {
                 delegate: Rectangle {
                     implicitHeight: 40
                     implicitWidth: 100
-                    color: row % 2 === 0 ? "#f0f0f0" : "#ffffff"
-                    border.color: "#e0e0e0"
+                    color: row % 2 === 0 ? "#2b2b2b" : "#1e1e1e"
+                    border.color: "#505050"
+
+                    MouseArea {
+                        anchors.fill: parent
+                        hoverEnabled: true
+                        onEntered: parent.color = "#454545"
+                        onExited: parent.color = row % 2 === 0 ? "#2b2b2b" : "#1e1e1e"
+                        onDoubleClicked: {
+                            processTable.processDoubleClicked(model.pid)
+                        }
+                    }
 
                     Text {
                         anchors.fill: parent
@@ -164,17 +174,10 @@ Item {
                                 default: return "";
                             }
                         }
-                        color: "black"
+                        color: "#ffffff"
                         font.pointSize: 11
                         elide: Text.ElideRight
                         verticalAlignment: Text.AlignVCenter
-                    }
-
-                    MouseArea {
-                        anchors.fill: parent
-                        onDoubleClicked: {
-                            processTable.processDoubleClicked(model.pid)
-                        }
                     }
                 }
             }

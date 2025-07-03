@@ -4,8 +4,10 @@ import QtQuick.Layouts 6.9
 
 Rectangle {
     id: systemOverview
-    color: "#f5f5f5"
-    border.color: "#e0e0e0"
+    color: "#2b2b2b"
+    border.color: "#505050"
+    border.width: 1
+    radius: 8
     height: 120
     
     RowLayout {
@@ -17,8 +19,9 @@ Rectangle {
         Rectangle {
             Layout.fillWidth: true
             Layout.fillHeight: true
-            color: "#ffffff"
-            border.color: "#e0e0e0"
+            color: "#3c3c3c"
+            border.color: "#505050"
+            border.width: 1
             radius: 8
             
             RowLayout {
@@ -33,7 +36,7 @@ Rectangle {
                         text: "CPU Usage"
                         font.bold: true
                         font.pointSize: 12
-                        color: "#333333"
+                        color: "#ffffff"
                     }
                     
                     Text {
@@ -51,8 +54,9 @@ Rectangle {
         Rectangle {
             Layout.fillWidth: true
             Layout.fillHeight: true
-            color: "#ffffff"
-            border.color: "#e0e0e0"
+            color: "#3c3c3c"
+            border.color: "#505050"
+            border.width: 1
             radius: 8
             
             RowLayout {
@@ -67,7 +71,7 @@ Rectangle {
                         text: "Memory Usage"
                         font.bold: true
                         font.pointSize: 12
-                        color: "#333333"
+                        color: "#ffffff"
                     }
                     
                     Text {
@@ -93,7 +97,7 @@ Rectangle {
                     Text {
                         text: processModel.totalMemoryMB + " MB total"
                         font.pointSize: 8
-                        color: "#666666"
+                        color: "#cccccc"
                         horizontalAlignment: Text.AlignRight
                     }
                 }
@@ -104,8 +108,9 @@ Rectangle {
         Rectangle {
             Layout.fillWidth: true
             Layout.fillHeight: true
-            color: "#ffffff"
-            border.color: "#e0e0e0"
+            color: "#3c3c3c"
+            border.color: "#505050"
+            border.width: 1
             radius: 8
             
             RowLayout {
@@ -120,14 +125,14 @@ Rectangle {
                         text: "Processes"
                         font.bold: true
                         font.pointSize: 12
-                        color: "#333333"
+                        color: "#ffffff"
                     }
                     
                     Text {
                         text: processModel.totalProcesses.toString()
                         font.pointSize: 18
                         font.bold: true
-                        color: "#3498db"
+                        color: "#87CEEB"
                     }
                 }
                 
@@ -145,14 +150,14 @@ Rectangle {
                     Text {
                         text: processModel.sleepingProcesses + " sleeping"
                         font.pointSize: 9
-                        color: "#666666"
+                        color: "#cccccc"
                         horizontalAlignment: Text.AlignRight
                     }
                     
                     Text {
                         text: processModel.idleProcesses + " idle"
                         font.pointSize: 9
-                        color: "#95a5a6"
+                        color: "#999999"
                         horizontalAlignment: Text.AlignRight
                     }
                 }
@@ -163,8 +168,9 @@ Rectangle {
         Rectangle {
             Layout.fillWidth: true
             Layout.fillHeight: true
-            color: "#ffffff"
-            border.color: "#e0e0e0"
+            color: "#3c3c3c"
+            border.color: "#505050"
+            border.width: 1
             radius: 8
             
             RowLayout {
@@ -179,14 +185,14 @@ Rectangle {
                         text: "Threads"
                         font.bold: true
                         font.pointSize: 12
-                        color: "#333333"
+                        color: "#ffffff"
                     }
                     
                     Text {
                         text: processModel.totalThreads.toString()
                         font.pointSize: 18
                         font.bold: true
-                        color: "#9b59b6"
+                        color: "#87CEEB"
                     }
                 }
             }

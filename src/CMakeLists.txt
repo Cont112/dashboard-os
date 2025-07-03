@@ -26,6 +26,8 @@ qt_add_resources(dashboard "qml_resources"
        qml/FilesystemBrowser.qml
        qml/PartitionOverview.qml
        qml/ProcessDetails.qml
+       qml/MemoryUsageGraph.qml
+       qml/CpuUsageChart.qml
 )
 
 target_link_libraries(dashboard PRIVATE 
