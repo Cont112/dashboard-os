@@ -26,6 +26,7 @@ qt_add_resources(dashboard "qml_resources"
         qml/ProcessTable.qml
         qml/SystemOverview.qml
         qml/MemoryUsageGraph.qml
+        qml/CpuUsageChart.qml
 )
 
 target_link_libraries(dashboard PRIVATE 

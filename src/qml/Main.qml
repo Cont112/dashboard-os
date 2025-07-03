@@ -51,7 +51,11 @@ ApplicationWindow {
             //    Layout.fillWidth: true
             //    Layout.fillHeight: true
             //}
-            MemoryUsageGraph {
+            // MemoryUsageGraph {
+            //     Layout.fillWidth: true
+            //     Layout.fillHeight: true
+            // }
+            CpuUsageChart {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
             }
