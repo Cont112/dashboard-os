@@ -4,9 +4,11 @@ project(dashboard LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_PREFIX_PATH "/home/pedro/Qt/6.9.0/gcc_64/lib/cmake/")
+#set(CMAKE_PREFIX_PATH "/home/pedro/Qt/6.9.0/gcc_64/lib/cmake/")
+set(CMAKE_PREFIX_PATH "/home/errera/Qt/6.9.0/gcc_64/lib/cmake/")
+set(QT_QML_GENERATE_QMLLS_INI ON)
 
-find_package(Qt6 REQUIRED COMPONENTS Core Widgets Quick Charts)
+find_package(Qt6 REQUIRED COMPONENTS Core Widgets Quick Graphs QuickControls2)
 qt_standard_project_setup()
 
 qt_add_executable(dashboard
@@ -20,15 +22,17 @@ qt_add_executable(dashboard
 qt_add_resources(dashboard "qml_resources"
     PREFIX "/"
     FILES
-       qml/Main.qml
-       qml/ProcessTable.qml
-       qml/SystemOverview.qml
+        qml/Main.qml
+        qml/ProcessTable.qml
+        qml/SystemOverview.qml
+        qml/MemoryUsageGraph.qml
 )
 
 target_link_libraries(dashboard PRIVATE 
     Qt6::Widgets
     Qt6::Quick
-    Qt6::Charts
+    Qt6::Graphs
+    Qt6::QuickControls2
 )
 
 install(TARGETS dashboard

@@ -47,7 +47,11 @@ ApplicationWindow {
             Layout.fillHeight: true
             currentIndex: window.currentTab
 
-            ProcessTable {
+            //ProcessTable {
+            //    Layout.fillWidth: true
+            //    Layout.fillHeight: true
+            //}
+            MemoryUsageGraph {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
             }

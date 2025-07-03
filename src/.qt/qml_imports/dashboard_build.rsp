@@ -1,0 +1,11 @@
+-rootPath
+/home/errera/utfpr/sistemasOperacionais/dashboard-os/src
+-cmake-output
+-output-file
+/home/errera/utfpr/sistemasOperacionais/dashboard-os/src/.qt/qml_imports/dashboard_build.cmake
+-importPath
+/home/errera/utfpr/sistemasOperacionais/dashboard-os/src
+-importPath
+/home/errera/Qt/6.9.0/gcc_64/qml
+-qrcFiles
+/home/errera/utfpr/sistemasOperacionais/dashboard-os/src/.qt/rcc/qml_resources.qrc

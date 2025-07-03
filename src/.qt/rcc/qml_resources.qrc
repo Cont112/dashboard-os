@@ -1,0 +1,9 @@
+<RCC>
+  <qresource prefix="/">
+    <file alias="qml/Main.qml">/home/errera/utfpr/sistemasOperacionais/dashboard-os/src/qml/Main.qml</file>
+    <file alias="qml/ProcessTable.qml">/home/errera/utfpr/sistemasOperacionais/dashboard-os/src/qml/ProcessTable.qml</file>
+    <file alias="qml/SystemOverview.qml">/home/errera/utfpr/sistemasOperacionais/dashboard-os/src/qml/SystemOverview.qml</file>
+    <file alias="qml/MemoryUsageGraph.qml">/home/errera/utfpr/sistemasOperacionais/dashboard-os/src/qml/MemoryUsageGraph.qml</file>
+  </qresource>
+</RCC>
+
